@@ -1,0 +1,19 @@
+<div  class="container">
+    <form [formGroup]="loginForm" class="form-container">
+        <div class="login-header">
+            <p style="font-size: 30px;line-height:10px;">Login</p>
+        </div>
+        <mat-divider ></mat-divider>
+      <mat-form-field  appearance="outline" class="login-form">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+      <mat-form-field  appearance="outline" class="login-form">
+        <mat-label>Password</mat-label>
+        <input type="password" formControlName="password" matInput />
+      </mat-form-field>
+      <button mat-fab [disabled]="loginForm.invalid" class="signin-btn" (click)="onSubmit()">SignIn</button>
+    </form>
+</div>
+
+

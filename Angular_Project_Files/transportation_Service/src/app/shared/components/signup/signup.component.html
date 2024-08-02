@@ -1,0 +1,36 @@
+<div class="container">
+    <form  [formGroup]="signupForm" class="form-container">
+        <div class="signup-header">
+            <p style="font-size: 30px;line-height:10px;">SignUp</p>
+        </div>
+        <mat-divider ></mat-divider>
+        <div class="inline-inp-container">
+            <mat-form-field  appearance="outline" class="inline-inp">
+                <mat-label>Firstname</mat-label>
+                <input formControlName="firstName" matInput />
+              </mat-form-field>
+              <mat-form-field  appearance="outline" class="inline-inp">
+                <mat-label>Lastname</mat-label>
+                <input formControlName="lastName" matInput />
+              </mat-form-field>
+        </div>
+      <mat-form-field  appearance="outline" class="signup-inp">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+      <mat-form-field  appearance="outline" class="signup-inp">
+        <mat-label>Password</mat-label>
+        <input type="password" formControlName="password" matInput />
+      </mat-form-field>
+      <mat-form-field  appearance="outline" class="signup-inp">
+        <mat-label>Phone</mat-label>
+        <input formControlName="phoneNumber" matInput />
+      </mat-form-field>
+      <mat-form-field  appearance="outline" class="signup-inp">
+        <mat-label>Address</mat-label>
+        <textarea formControlName="address" matInput></textarea>
+      </mat-form-field>
+      <button mat-fab [disabled]="signupForm.invalid" class="signin-btn" (click)="onSubmit()">SignIn</button>
+    </form>
+</div>
+

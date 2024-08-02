@@ -1,0 +1,11 @@
+.spacer{
+    flex : 1 1 auto
+}
+
+.nav-bg{
+    background-color: var(--secondary-color);
+}
+
+.text-color{
+    color: white !important;
+}
