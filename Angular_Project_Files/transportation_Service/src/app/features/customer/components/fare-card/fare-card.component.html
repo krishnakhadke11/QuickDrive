@@ -1,0 +1,14 @@
+<mat-card class="fare-card">
+    <mat-card-content>
+      <h4 class="fare-header">Fare</h4>
+      <h1 class="fare-amount">{{ fareAmount | currency:'INR' }}</h1>
+      <ul>
+        <li >Distance : {{ distance }} Kms</li>
+        <li>{{ vehicleType }}</li>
+        <li>Payment Type : {{ paymentType }}</li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" class="book-button">Book</button>
+    </mat-card-actions>
+  </mat-card>

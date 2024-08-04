@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnDestroy{
   loginSubscription : Subscription | undefined;
-  constructor(private authService : AuthenticationService){
+  constructor(private authService : AuthenticationService,private router : Router){
 
   }
  
@@ -32,6 +33,7 @@ export class LoginComponent implements OnDestroy{
     const data = this.loginForm.value;
     this.loginSubscription =  this.authService.customerLogin(data).subscribe((res) =>{
       console.log(res);
+      this.router.navigate(['/customer'])
     })
   }
 

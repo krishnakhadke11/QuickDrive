@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 export class SignupComponent implements OnDestroy{
 signupSubscription : Subscription | undefined;
 
-  constructor(private authService : AuthenticationService){
+  constructor(private authService : AuthenticationService,private router : Router){
 
   }
   
@@ -40,6 +41,7 @@ signupSubscription : Subscription | undefined;
     }
     this.signupSubscription = this.authService.customerSignup(data).subscribe((res)=>{
       console.log(res);
+      this.router.navigate(['/login'])
     });
     // console.log(this.signupForm.value)
   }

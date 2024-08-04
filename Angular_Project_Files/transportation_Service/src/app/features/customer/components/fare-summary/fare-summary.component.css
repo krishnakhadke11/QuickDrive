@@ -1,0 +1,27 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .fare-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+  }
+  
+  .map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10%;
+    width: 50%;
+  }
+  
+  app-fare-card{
+    width: 64%;
+  }

@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from 'rxjs';
-import { User } from '../models/User';
-import { AuthResponse } from '../models/AuthResponse';
-import { NotificationService } from './notification.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { AuthResponse } from '../../../core/models/AuthResponse';
+import { User } from '../../../core/models/User';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,6 @@ export class AuthenticationService {
     }),tap((res)=>{
       console.log(res)
       this.notif.showSuccess("Signup Successfull")
-      this.router.navigate(['/login'])
     }))
   }
 
@@ -44,8 +44,8 @@ export class AuthenticationService {
       ) 
       this.notif.showSuccess("Login Successfull")
       localStorage.setItem('user',JSON.stringify(user))
-      console.log("From Authentication Service : Login Successfull")
-      // this.router.navigate(['/customer'])
+      //console.log("From Authentication Service : Login Successfull")
+      // 
     }))
     console.log(data)
   }

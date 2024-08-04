@@ -27,7 +27,7 @@ mat-form-field{
     width: 100% !important;
 }
 
-.signin-btn {
+.btn {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     /* border-radius: 5%; */
