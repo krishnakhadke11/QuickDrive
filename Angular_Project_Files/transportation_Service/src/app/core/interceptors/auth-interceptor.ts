@@ -1,12 +1,26 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpInterceptorFn } from "@angular/common/http";
+import { exhaustMap, take } from "rxjs";
+import { AuthenticationService } from "../../features/authentication/services/authentication.service";
+import { inject } from "@angular/core";
 
 
-export class AuthInterceptorService implements HttpInterceptor{
+export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
+  
+  const authService = inject(AuthenticationService);
+  return authService.user.pipe(take(1), exhaustMap(user => {
+            if(!user){
+                return next(req);
+            }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //Adding bearer token
-    return next.handle(req);
-  }
-
-}
+            if(req.url.startsWith('https://api.mapbox.com')){
+              return next(req);
+            }
+            
+            const authReq = req.clone({
+              setHeaders: {
+                Authorization: user.token,
+              }
+             });
+            return next(authReq)
+        }));
+};

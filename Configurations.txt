@@ -3,3 +3,58 @@ Color Pallete : https://colorhunt.co/palette/201e43134b70508c9beeeeee OR https:/
 Home Page Image Animated SVG : https://storyset.com/illustration/gps-navigator/cuate/animate
 
 MapBox : Default Public Token : pk.eyJ1Ijoia3Jpc2huYWtoYWRrZS1nZHRjIiwiYSI6ImNsemF5NXlwbzBza2cyanM4eGpoc2hjNTUifQ.O4YVe1XQM3GcGkFa3HeXvQ
+
+https://api.mapbox.com/geocoding/v5/mapbox.places/kharghar.json?types=address&access_token=pk.eyJ1Ijoia3Jpc2huYWtoYWRrZS1nZHRjIiwiYSI6ImNsemF5NXlwbzBza2cyanM4eGpoc2hjNTUifQ.O4YVe1XQM3GcGkFa3HeXvQ
+
+.ts : 
+  myControl = new FormControl<string>('');
+  options: Feature[] = [];
+  filteredOptions!: Observable<Feature[]>;
+
+  constructor(private mapboxService : MapboxService){ 
+
+  }
+  ngOnInit(): void {
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
+      this.myControl.valueChanges.subscribe(searchTerm =>{
+        // console.log(searchTerm)
+        if (searchTerm && searchTerm.length > 0) {        
+          this.mapboxService
+            .search_word(searchTerm)
+            .subscribe((features: Feature[]) => {
+              this.options  = features
+            });
+          } else {
+            this.options = [];
+          }
+      });
+  }
+
+  private _filter(value : string | null) : Feature[] {
+    const filterValue = value?.toLowerCase() || '';
+
+    return this.options.filter(option => 
+    option.place_name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  displayFn(option : Feature){
+    return option ? option.place_name : '';
+  }
+
+html : 
+<p>test works!</p>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Assignee</mat-label>
+      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.place_name}}</mat-option>
+        
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>

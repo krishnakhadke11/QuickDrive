@@ -1,22 +1,40 @@
 <div class="container">
-    <div class="booking-section">
-        <div class="form-header">
-            <p style="font-size: 30px;line-height:10px;"><U>Book a cab</U></p>
-        </div>
-        <form class="form-container">
-            <mat-label>Pickup Location</mat-label>
-            <mat-form-field appearance="outline">
-                
-                <input formControlName="pickupLocation" matInput />
-            </mat-form-field>
-            <mat-label>Drop Location</mat-label>
-            <mat-form-field appearance="outline">
-                <input formControlName="dropLocation" matInput />
-            </mat-form-field>
-            <button mat-fab class="btn" >Check Expense</button>
-        </form>
+  <div class="booking-section">
+    <div class="form-header">
+      <p style="font-size: 30px; line-height: 10px"><U>Book a cab</U></p>
     </div>
-    <div class="img-section">
-        <img src="assets/img/home_page_gps.gif" alt="">
-    </div>
+    <form class="form-container">
+      <mat-label>Pickup Location</mat-label>
+      <mat-form-field appearance="outline">
+        <input
+          [formControl]="pickupLocation"
+          matInput
+          [matAutocomplete]="auto1"
+        />
+        <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn1">
+          <mat-option
+            *ngFor="let option of filteredPickup | async"
+            [value]="option"
+            >{{ option.place_name }}</mat-option
+          >
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-label>Drop Location</mat-label>
+      <mat-form-field appearance="outline">
+        <input [formControl]="dropLocation" matInput [matAutocomplete]="auto2" />
+        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn2">
+          <mat-option
+            *ngFor="let option of filteredDrop | async"
+            [value]="option"
+            >{{ option.place_name }}</mat-option
+          >
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-fab class="btn">Check Expense</button>
+    </form>
+  </div>
+  <div class="img-section">
+    <img src="assets/img/home_page_gps.gif" alt="" />
+  </div>
 </div>

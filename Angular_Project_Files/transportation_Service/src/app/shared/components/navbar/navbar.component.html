@@ -1,6 +1,10 @@
 <mat-toolbar  class="nav-bg text-color mat-elevation-z6">
     <span routerLink="/" style="cursor: pointer;"><mat-icon>eco</mat-icon>QuickDrive</span>
     <div class="spacer"></div>
-    <a mat-button routerLink="login" class="text-color">Login</a>|
-    <a mat-button routerLink="signup" class="text-color">SignUp    </a>
+    <a mat-button routerLink="login" class="text-color" *ngIf="!isLoggedIn">Login</a><span *ngIf="!isLoggedIn">|</span>
+    <a mat-button routerLink="signup" class="text-color" *ngIf="!isLoggedIn">SignUp</a>
+    <a mat-button routerLink="/customer" class="text-color"  *ngIf="isLoggedIn">Home</a>
+    <a mat-button routerLink="/customer/rides" class="text-color" *ngIf="isLoggedIn">Rides</a>
+    <a mat-button routerLink="/customer/payments" class="text-color" *ngIf="isLoggedIn">Payments</a>
+    <a mat-button class="text-color" (click)="logout()" *ngIf="isLoggedIn">logout</a>
 </mat-toolbar>

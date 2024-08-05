@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthResponse } from '../../../core/models/AuthResponse';
 import { User } from '../../../core/models/User';
@@ -12,12 +12,14 @@ import { User } from '../../../core/models/User';
 })
 export class AuthenticationService {
   base_url : string = "http://localhost:8080/"
+  user  = new BehaviorSubject<User | null>(null);
+
   constructor(private http : HttpClient,private router : Router,private notif : NotificationService) {
 
    }
 
   customerSignup (data : any){
-    return this.http.post('http://localhost:8080/auth/customer/signup',data).pipe(catchError(err =>{
+    return this.http.post(this.base_url + `auth/customer/signup`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Invalid Credentials")
       }else
@@ -30,7 +32,7 @@ export class AuthenticationService {
 
   customerLogin(data : any){
     
-    return this.http.post<AuthResponse>('http://localhost:8080/auth/signin',data).pipe(catchError(err =>{
+    return this.http.post<AuthResponse>(this.base_url + `auth/signin`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Invalid Credentials")
       }else
@@ -44,9 +46,27 @@ export class AuthenticationService {
       ) 
       this.notif.showSuccess("Login Successfull")
       localStorage.setItem('user',JSON.stringify(user))
+      this.user.next(user);
       //console.log("From Authentication Service : Login Successfull")
       // 
     }))
-    console.log(data)
+    // console.log(data)
   }
+
+  logout(){
+    this.user.next(null)
+    localStorage.removeItem('user');
+    this.router.navigate(['/login'])
+  }
+
+  autoLogin() { 
+    const localUser = localStorage.getItem('user')
+    const user = localUser ? JSON.parse(localUser) : null
+    if(user){
+      this.user.next(user);
+      return;
+    }
+    this.router.navigate(['/login'])
+  }
+
 }
