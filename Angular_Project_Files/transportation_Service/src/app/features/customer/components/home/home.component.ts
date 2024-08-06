@@ -1,92 +1,60 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule  } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Feature, MapboxService } from '../../../../core/services/mapbox.service';
-import { debounce, debounceTime, interval, map, Observable, startWith } from 'rxjs';
+import { debounce, debounceTime, interval, map, Observable, startWith, Subscription, throwError } from 'rxjs';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { FareService } from '../../services/fare.service';
+import { Router } from '@angular/router';
+import { fare } from '../../../../core/models/fareData';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatFormFieldModule,MatInputModule,MatButtonModule,MatAutocompleteModule,AsyncPipe,CommonModule,ReactiveFormsModule],
+  imports: [MatFormFieldModule,AutocompleteComponent,MatButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
-  pickupLocation = new FormControl<string>('');
-  dropLocation = new FormControl<string>('');
-
-  pickupOptions: Feature[] = [];
-  dropOptions: Feature[] = [];
+export class HomeComponent implements OnDestroy{
+  fareSubscription : Subscription | undefined;
+  pickupCoordinates: [number, number] | null = null;
+  dropCoordinates: [number, number] | null = null;
   
-  filteredPickup!: Observable<Feature[]>;
-  filteredDrop!: Observable<Feature[]>;
-
-  constructor(private mapboxService : MapboxService){ 
+  constructor(private fareService : FareService,private router : Router){
 
   }
-  ngOnInit(): void {
 
-    this.filteredPickup = this.pickupLocation.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterPickup(value || ""))
-    );  
+  onPickupCoordinates(coordinates: [number, number]) {
+    this.pickupCoordinates = coordinates;
+  }
+ 
+  onDropCoordinates(coordinates: [number, number]) {
+    this.dropCoordinates = coordinates;
+  }
 
-    this.pickupLocation.valueChanges.pipe(debounceTime(0)).subscribe(searchTerm =>{
-      console.log(searchTerm)
-      if (searchTerm && searchTerm.length > 0) {        
-        this.mapboxService
-          .search_word(searchTerm)
-          .subscribe((features: Feature[]) => {
-            this.pickupOptions  = features
-          });
-        } else {
-          this.pickupOptions = [];
+  onCheckExpense(){
+    console.log(this.pickupCoordinates)
+    console.log(this.dropCoordinates)
+    if(this.pickupCoordinates != null && this.dropCoordinates != null){
+      const pickupCoordinatesStr = this.pickupCoordinates[1] + "," + this.pickupCoordinates[0];
+      const dropCoordinatesStr = this.dropCoordinates[1] + "," + this.dropCoordinates[0];
+
+      this.fareSubscription = this.fareService.checkExpense(pickupCoordinatesStr,dropCoordinatesStr).subscribe((res : fare)=>{
+        console.log(res);
+        if(res){
+          this.router.navigate(['/customer/fare'],{state : {fareData : res}})
         }
-    });
-
-    this.filteredDrop = this.pickupLocation.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterDrop(value || ""))
-    );  
-
-    this.dropLocation.valueChanges.pipe(debounceTime(0)).subscribe(searchTerm =>{
-      console.log(searchTerm)
-      if (searchTerm && searchTerm.length > 0) {        
-        this.mapboxService
-          .search_word(searchTerm)
-          .subscribe((features: Feature[]) => {
-            this.dropOptions  = features
-          });
-        } else {
-          this.dropOptions = [];
-        }
-    });
+      })
+    }else{
+      throwError(()=> "Please Enter Pickup And Drop Location")
+    } 
   }
 
-  private _filterPickup(value : string) : Feature[] {
-    const filterValue = value.toString().toLowerCase() || '';
-
-    return this.pickupOptions.filter(option => 
-    option.place_name.toLowerCase().includes(filterValue)
-    );
+  ngOnDestroy(): void {
+    this.fareSubscription?.unsubscribe()
   }
-  private _filterDrop(value : string) : Feature[] {
-    const filterValue = value.toString().toLowerCase() || '';
-
-    return this.dropOptions.filter(option => 
-    option.place_name.toLowerCase().includes(filterValue)
-    );
-  }
-
-  displayFn1(option : Feature){
-    return option ? option.place_name : '';
-  }
-  displayFn2(option : Feature){
-    return option ? option.place_name : '';
-  }
-
 }

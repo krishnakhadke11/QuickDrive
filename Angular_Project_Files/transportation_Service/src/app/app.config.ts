@@ -1,9 +1,9 @@
-import { ApplicationConfig, ErrorHandler, inject, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { GlobalErrorHandler } from './core/services/global-error-handler.service';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 

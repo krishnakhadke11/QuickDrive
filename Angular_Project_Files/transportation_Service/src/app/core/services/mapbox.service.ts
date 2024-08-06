@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
 
-
 export interface MapboxOutput {
   attribution: string;
   features: Feature[];
@@ -11,6 +10,8 @@ export interface MapboxOutput {
 }
 
 export interface Feature {
+  coordinates: [number,number]; // Longitude,Latitude
+  geometry: Feature;
   place_name: string;
 }
 
@@ -20,9 +21,11 @@ export interface Feature {
 export class MapboxService {
   constructor(private http: HttpClient) {}
 
-  search_word(query: string) : any{
+  search_word(query: string): Observable<Feature[]> {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?types=address&access_token=${environment.mapbox.accessToken}`;
-    return this.http.get<MapboxOutput>(url)
-      
+
+    return this.http
+      .get<MapboxOutput>(url)
+      .pipe(map((response) => response.features || []));
   }
 }

@@ -2,6 +2,7 @@ import { HttpInterceptorFn } from "@angular/common/http";
 import { exhaustMap, take } from "rxjs";
 import { AuthenticationService } from "../../features/authentication/services/authentication.service";
 import { inject } from "@angular/core";
+import { environment } from "../../../environments/environment";
 
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
@@ -11,16 +12,16 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
             if(!user){
                 return next(req);
             }
-
-            if(req.url.startsWith('https://api.mapbox.com')){
+            if(req.url.startsWith(environment.BASE_URL)){
+              const authReq = req.clone({
+                setHeaders: {
+                  Authorization: "Bearer "+user.token,
+                }
+               });
+              return next(authReq)
+            }else{
               return next(req);
             }
             
-            const authReq = req.clone({
-              setHeaders: {
-                Authorization: user.token,
-              }
-             });
-            return next(authReq)
         }));
 };

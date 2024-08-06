@@ -10,8 +10,8 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './fare-card.component.css'
 })
 export class FareCardComponent {
-  @Input() fareAmount!: number;
-  @Input() distance!: number;
-  @Input() vehicleType!: string;
-  @Input() paymentType!: string;
+  @Input()fareAmount!: number | undefined;
+  @Input() distance!: string | undefined;
+  @Input() vehicleType!: string | null;
+  @Input() paymentType!: string | null;
 }

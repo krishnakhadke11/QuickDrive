@@ -62,8 +62,9 @@ export class AuthenticationService {
   autoLogin() { 
     const localUser = localStorage.getItem('user')
     const user = localUser ? JSON.parse(localUser) : null
+    const newUserObj = new User(user._token,user._refreshToken);
     if(user){
-      this.user.next(user);
+      this.user.next(newUserObj);
       return;
     }
     this.router.navigate(['/login'])
