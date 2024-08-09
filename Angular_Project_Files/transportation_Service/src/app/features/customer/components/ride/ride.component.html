@@ -3,6 +3,6 @@
         <p style="font-size: 30px;line-height:10px;"><U>Rides</U></p>
     </div>
     <div class="ride-grid">
-        <app-ride-card *ngFor="let ride of rides"></app-ride-card>
+        <app-ride-card *ngFor="let ride of rides" [ride]="ride"></app-ride-card>
     </div>
 </div>

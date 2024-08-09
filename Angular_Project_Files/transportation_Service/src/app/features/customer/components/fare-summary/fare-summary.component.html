@@ -1,18 +1,19 @@
-<div class="dashboard-container">
+<div class="dashboard-container"  *ngIf="!isSearching">
     <div class="fare-cards">
-      <app-fare-card [fareAmount]="fareData?.fiveSeaterFare" [distance]="fareData?.distance" [vehicleType]="'Mini - 5 Seater'" [paymentType]="'Cash/Online'"></app-fare-card>
-      <app-fare-card [fareAmount]="fareData?.sevenSeaterFare" [distance]="fareData?.distance" [vehicleType]="'Suv - 7 Seater'" [paymentType]="'Cash/Online'"></app-fare-card>
+      <app-fare-card [fareAmount]="fareData?.fiveSeaterFare" [distance]="fareData?.distance" [vehicleType]="'Mini - 5 Seater'" [pickupLocation]="fareData?.pickupLocation" [dropLocation]="fareData?.dropLocation" [duration]="fareData?.duration" [seatingCapacity]="'FIVE_SEATER'"></app-fare-card>
+
+      <app-fare-card [fareAmount]="fareData?.sevenSeaterFare" [distance]="fareData?.distance" [vehicleType]="'Suv - 7 Seater'" [seatingCapacity]="'SEVEN_SEATER'"></app-fare-card>
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div class="map-container">
       <!-- Include your map component or iframe here -->
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15138.380203194308!2d72.825833!3d18.974726!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce3002a4d4d3%3A0xdfc3d3022451ab3!2sSiddhivinayak%20Temple!5e0!3m2!1sen!2sin!4v1691082102612!5m2!1sen!2sin"
+      <!-- <iframe
         width="50%"
         height="450"
         style="border:0;"
         allowfullscreen=""
         loading="lazy"
-      ></iframe>
+      ></iframe> -->
+      <app-map-route [sourceLat]="srcLat" [sourceLng]="srcLng" [destLat]="destLat" [destLng]="destLng"/>
     </div>
   </div>

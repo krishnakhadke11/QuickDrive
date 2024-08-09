@@ -1,0 +1,31 @@
+.details{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 400px;
+}
+
+.details-item{
+    width: 100%;
+    display: flex;
+    gap: 6%;
+}
+
+.item-1{
+    width: 50%;
+    overflow: auto;
+}
+
+.item-2{
+    width: 50%;
+    overflow: auto;
+}
+
+.details-item h6{
+    font-size: 15px;
+    margin: 0;
+}
+
+.details-item p{
+    font-size: 12px;
+}

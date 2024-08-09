@@ -1,0 +1,85 @@
+<p mat-dialog-title><U>Ride Details</U></p>
+<mat-dialog-content>
+    <div class="details">
+        <div class="details-item">
+            <div class="item-1">
+                <h6>Pickup Location</h6>
+                <p>
+                    <!-- 841, Senapati Bapat Marg, Elphinstone, Saidham Nagar, Lower Parel,
+                    Mumbai, Maharashtra 400013 -->
+                    {{rideData.pickupLocation}}
+                </p>
+            </div>
+            <div class="item-2">
+                <h6>Drop Location</h6>
+                <p>
+                    <!-- Ground Floor, The Capital, G Block, Bandra Kurla Complex, Bandra East,
+                    Mumbai, Maharashtra 400051 -->
+                    {{rideData.dropLocation}}
+                </p>
+            </div>
+        </div>
+
+        <div class="details-item">
+            <div class="item-1">
+                <h6>Distance</h6>
+                <p>{{rideData.distance}}</p>
+            </div>
+            <div class="item-2">
+                <h6>Duration</h6>
+                <p>{{rideData.duration}}</p>
+            </div>
+        </div>
+
+        <div class="details-item">
+            <div class="item-1">
+                <h6>Fare</h6>
+                <p>{{ rideData.fare| currency : "INR"}}</p>
+            </div>
+            <div class="item-2">
+                <h6>Payment Type</h6>
+                <p> {{rideData.paymentType}} </p>
+            </div>
+        </div>
+
+        <div  class="details-item">
+            <h6><b><u>Driver Details</u></b></h6>
+        </div>
+
+        <div class="details-item">
+            <div class="item-1">
+                <h6>Drivers License</h6>
+                <p> {{rideData.driver?.driversLicense}} </p>
+            </div>
+            <div class="item-2">
+                <h6>Email Id </h6>
+                <p> {{rideData.driver?.user?.email}} </p>
+            </div>
+        </div>
+
+        <div  class="details-item">
+            <h6><b><u>Cab Details</u></b></h6>
+        </div>
+
+        <div class="details-item">
+            <div class="item-1">
+                <h6>Car Model</h6>
+                <p>{{rideData.cab?.model}}</p>
+            </div>
+            <div class="item-2">
+                <h6>Registration No.</h6>
+                <p> {{rideData.cab?.registerNo}} </p>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<ng-template #noData>
+    <mat-dialog-content>
+        <h6 mat-dialog-title>Please try again, No Drivers available</h6>
+    </mat-dialog-content>
+</ng-template>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

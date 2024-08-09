@@ -1,0 +1,24 @@
+<mat-dialog-content *ngIf="rideRequestData; else noData">
+  <div class="confirmation">
+      <mat-icon class="icon">check_circle</mat-icon>
+      <h6 style="border-bottom: 1px solid rgba(228, 134, 134, 0.404)">
+        Booking Confirmed
+      </h6>
+      <p>
+        <b><u>Cab Details</u></b>
+      </p>
+      <p>Car Model : {{rideRequestData.ride?.cab?.model}}</p>
+      <p>Car No. : {{rideRequestData.ride?.cab?.registerNo}}</p>
+      <p>Fare : {{rideRequestData.ride?.fare | currency : 'INR'}}</p>
+  </div>
+</mat-dialog-content>
+
+<ng-template #noData>
+  <mat-dialog-content>
+    <h6 mat-dialog-title>Please try again, No Drivers available</h6>
+  </mat-dialog-content>
+</ng-template>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

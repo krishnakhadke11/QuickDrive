@@ -1,30 +1,29 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css'],
+  selector: 'app-map-route',
+  standalone: true,
+  imports: [],
+  templateUrl: './map-route.component.html',
+  styleUrl: './map-route.component.css',
 })
-export class TestComponent implements OnInit {
-  map!: mapboxgl.Map ;
-  directionsService = 'https://api.mapbox.com/directions/v5/mapbox/driving/';
+export class MapRouteComponent implements OnInit {
+  map!: mapboxgl.Map;
+  directionsService: string =
+    'https://api.mapbox.com/directions/v5/mapbox/driving/';
   style = 'mapbox://styles/mapbox/streets-v11';
-  lat = 37.75;
-  lng = -122.41;
   mapboxToken: string = environment.mapbox.accessToken;
 
-  sourceLat = 19.075784;
-  sourceLng = 72.9952364;
+  @Input() sourceLat: number = 22.3511148;
+  @Input() sourceLng: number = 78.6677428;
 
-  destLat = 19.025773;
-  destLng = 73.0591845;
+  @Input() destLat: number = 22.3511148;
+  @Input() destLng: number = 78.6677428;
 
-  constructor(private http : HttpClient){
-
-  }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.initializeMap();
@@ -36,15 +35,20 @@ export class TestComponent implements OnInit {
       container: 'map',
       style: this.style,
       zoom: 13,
-      center: [this.sourceLng, this.sourceLat],
+      center: [this.destLng, this.destLat],
     });
 
-    this.map.on('style.load',()=>{   
+    this.map.on('style.load', () => {
       this.addRoute(
         [this.sourceLng, this.sourceLat],
         [this.destLng, this.destLat]
       );
-    })
+
+      this.fitMapBounds(
+        [this.sourceLng, this.sourceLat],
+        [this.destLng, this.destLat]
+      );
+    });
 
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, 'top-right');
@@ -53,13 +57,16 @@ export class TestComponent implements OnInit {
     new mapboxgl.Marker()
       .setLngLat([this.sourceLng, this.sourceLat])
       .addTo(this.map);
-    
-      new mapboxgl.Marker({color : 'red'})
+
+    new mapboxgl.Marker({ color: 'red' })
       .setLngLat([this.destLng, this.destLat])
       .addTo(this.map);
   }
+
   addRoute(start: [number, number], end: [number, number]) {
-    const url = `${this.directionsService}${start.join(',')};${end.join(',')}?geometries=geojson&access_token=${this.mapboxToken}`;
+    const url = `${this.directionsService}${start.join(',')};${end.join(
+      ','
+    )}?geometries=geojson&access_token=${this.mapboxToken}`;
 
     this.http.get(url).subscribe((data: any) => {
       const route = data.routes[0].geometry;
@@ -69,8 +76,8 @@ export class TestComponent implements OnInit {
         data: {
           type: 'Feature',
           geometry: route,
-          properties : {}
-        }
+          properties: {},
+        },
       });
 
       this.map.addLayer({
@@ -79,13 +86,21 @@ export class TestComponent implements OnInit {
         source: 'route',
         layout: {
           'line-join': 'round',
-          'line-cap': 'round'
+          'line-cap': 'round',
         },
         paint: {
           'line-color': '#3887be',
-          'line-width': 5
-        }
+          'line-width': 5,
+        },
       });
+    });
+  }
+
+  fitMapBounds(start: [number, number], end: [number, number]) {
+    const bounds = new mapboxgl.LngLatBounds([start, end]);
+    this.map.fitBounds(bounds, {
+      padding: 50,
+      maxZoom: 15 
     });
   }
 }

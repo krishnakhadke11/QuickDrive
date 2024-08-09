@@ -1,14 +1,26 @@
 <mat-card class="fare-card">
-    <mat-card-content>
-      <h4 class="fare-header">Fare</h4>
-      <h1 class="fare-amount">{{ fareAmount | currency:'INR' }}</h1>
-      <ul>
-        <li >Distance : {{ distance }} Kms</li>
-        <li>{{ vehicleType }}</li>
-        <li>Payment Type : {{ paymentType }}</li>
-      </ul>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary" class="book-button">Book</button>
-    </mat-card-actions>
-  </mat-card>
+  <mat-card-content>
+    <h4 class="fare-header">Fare</h4>
+    <h1 class="fare-amount">{{ fareAmount === null?200:fareAmount | currency : "INR" }}</h1>
+    <ul>
+      <li>Distance : {{ distance }} Kms</li>
+      <li>{{ vehicleType }}</li>
+      <li style="height: 55px;">
+        Payment Type :
+          <mat-form-field class="payment-type" appearance="outline">
+            <mat-label>Select</mat-label>
+            <mat-select [(value)] = "paymentType" >
+              @for (payment of paymentMode; track payment) {
+              <mat-option [value]="payment.value">{{
+                payment.viewValue
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" class="book-button" (click)="onBooking()">Book</button>
+  </mat-card-actions>
+</mat-card>

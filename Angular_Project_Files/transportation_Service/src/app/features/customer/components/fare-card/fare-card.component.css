@@ -37,4 +37,13 @@
   mat-card-actions {
     padding: 5px 16px 16px;
   }
-  
+
+  .payment-type{
+   margin-left: -1.9rem;
+   min-width: 200px;
+   scale: 0.7;
+  }
+
+  mat-form-field{
+    flex: 1;
+  }

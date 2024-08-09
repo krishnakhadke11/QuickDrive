@@ -1,0 +1,17 @@
+<p mat-dialog-title>Ride Details</p>
+<mat-dialog-content *ngIf="rideRequestData; else noData">
+    <div class="confirmation">
+        
+    </div>
+</mat-dialog-content>
+  
+  <ng-template #noData>
+    <mat-dialog-content>
+      <h6 mat-dialog-title>Please try again, No Drivers available</h6>
+    </mat-dialog-content>
+  </ng-template>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+  

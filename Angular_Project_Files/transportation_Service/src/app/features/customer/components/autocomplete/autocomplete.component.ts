@@ -26,7 +26,7 @@ export class AutocompleteComponent {
   }
   ngOnInit(): void {
       this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
+        startWith(''), // emits the default value
         map(value => this._filter(value || ''))
       );
       // .pipe(debounce(()=>timer(1000)))

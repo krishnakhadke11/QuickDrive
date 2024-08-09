@@ -1,12 +1,7 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule  } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { Feature, MapboxService } from '../../../../core/services/mapbox.service';
-import { debounce, debounceTime, interval, map, Observable, startWith, Subscription, throwError } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { FareService } from '../../services/fare.service';
 import { Router } from '@angular/router';

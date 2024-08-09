@@ -1,0 +1,1 @@
+export type BookingStatus = 'PENDING' | 'ACCEPTED' | 'CANCELLED';

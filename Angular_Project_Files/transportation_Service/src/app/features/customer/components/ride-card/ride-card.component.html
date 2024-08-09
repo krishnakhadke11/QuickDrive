@@ -1,21 +1,21 @@
-<mat-card class="ride-card">
+<mat-card class="ride-card" (click)="onCardClick()">
   <div class="location">
     <mat-icon>location_on</mat-icon>
     <div class="location-details">
-      <div>Kharghar</div>
+      <div>{{pickupLocation}}</div>
       <div class="location-type">pickup</div>
     </div>
   </div>
   <div class="location">
     <mat-icon>location_on</mat-icon>
     <div class="location-details">
-      <div>One World Center</div>
+      <div>{{dropLocation}}</div>
       <div class="location-type">Dropoff</div>
     </div>
   </div>
   <div class="cab-details">
     <div><span style="border-bottom: 1px solid #ccc;">Cab Details</span></div>
-    <div class="car-details">BMW i8</div>
-    <div class="car-number">MH43BC8888</div>
+    <div class="car-details">{{ride?.cab?.model}}</div>
+    <div class="car-number">{{ride?.cab?.registerNo}}</div>
   </div>
 </mat-card>
