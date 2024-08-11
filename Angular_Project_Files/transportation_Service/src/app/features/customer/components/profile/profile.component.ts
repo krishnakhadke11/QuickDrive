@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { UserProfile } from '../../../../core/models/UserProfile';
+
+
+
 
 @Component({
   selector: 'app-profile',
@@ -12,4 +16,16 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class ProfileComponent {
 
+  userProfile: UserProfile;
+
+  constructor(){
+    this.userProfile = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      address: '1234 Elm Street, Springfield',
+      role: 'Customer'
+    };
+  }
 }

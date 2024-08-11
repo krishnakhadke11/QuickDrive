@@ -1,3 +1,35 @@
-<div>
-    
+<div class="container">
+  <div class="button-card-box">
+    <button class="edit-button" mat-raised-button>Edit</button>
+
+    <div class="profile-container">
+      <h2>User Profile</h2>
+      <div class="profile-card">
+        <div class="profile-field">
+          <label>First Name:</label>
+          <span>{{ userProfile.firstName }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Last Name:</label>
+          <span>{{ userProfile.lastName }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Email:</label>
+          <span>{{ userProfile.email }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Phone Number:</label>
+          <span>{{ userProfile.phoneNumber }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Address:</label>
+          <span>{{ userProfile.address }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Role:</label>
+          <span>{{ userProfile.role }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

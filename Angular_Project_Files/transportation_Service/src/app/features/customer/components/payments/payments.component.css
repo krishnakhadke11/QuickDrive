@@ -1,0 +1,28 @@
+.mat-card {
+    margin: 20px;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+    border: 1px solid #0D47A1;
+  }
+  
+  .mat-header-cell {
+    background-color: #0D47A1;
+    color: white;
+    text-align: center;
+  }
+  
+  /* .mat-row:nth-child(even) .mat-cell {
+    background-color: #E3F2FD;
+  }
+  
+  .mat-row:nth-child(odd) .mat-cell {
+    background-color: #0D47A1;
+    color: white;
+  } */
+  
+  .mat-table {
+    width: 100%;
+  }
+  

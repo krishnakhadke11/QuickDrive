@@ -5,6 +5,7 @@ import { RideComponent } from "./components/ride/ride.component";
 import { canActivateGuard } from "../../core/guards/auth.guard";
 import { SearchingCabComponent } from "./components/searching-cab/searching-cab.component";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { PaymentsComponent } from "./components/payments/payments.component";
 
 
 export const CUSTOMER_ROUTES : Route[] = [
@@ -29,5 +30,9 @@ export const CUSTOMER_ROUTES : Route[] = [
     {
         path : 'profile',
         component : ProfileComponent,
+    },
+    {
+        path : 'payments',
+        component : PaymentsComponent,
     },
 ]
