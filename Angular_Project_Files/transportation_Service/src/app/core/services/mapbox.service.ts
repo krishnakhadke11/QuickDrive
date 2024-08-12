@@ -13,6 +13,7 @@ export interface Feature {
   coordinates: [number,number]; // Longitude,Latitude
   geometry: Feature;
   place_name: string;
+  text : string
 }
 
 export interface Address{

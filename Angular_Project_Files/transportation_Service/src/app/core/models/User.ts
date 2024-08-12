@@ -1,7 +1,10 @@
+import { Role } from "./Role";
+
 export class User{
     constructor(
         private _token:string,
-        private _refreshToken:string
+        private _refreshToken:string,
+        private _role: Role
     ){}
     get token(){
         return this._token;
@@ -16,5 +19,13 @@ export class User{
     }
     set refreshToken(refreshToken : string){
         this.refreshToken = refreshToken;
+    }
+
+    get role(){
+        return this._role
+    }
+
+    set role(role : Role){
+        this._role = role;
     }
 }

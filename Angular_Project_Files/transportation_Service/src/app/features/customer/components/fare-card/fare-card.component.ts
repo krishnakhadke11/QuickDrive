@@ -36,6 +36,8 @@ export class FareCardComponent {
   @Input() pickupLocation!:string | undefined;
   @Input() duration!:string | undefined;
   @Input() seatingCapacity : SeatingCapacity | undefined;
+  @Input() pickupName : string | undefined;
+  @Input() dropName : string | undefined;
 
   // @Input() paymentType!: string | null;
 
@@ -53,7 +55,9 @@ export class FareCardComponent {
   onBooking(){
     const rideRequest : RideRequest  = {
         pickupLocation : this.pickupLocation,
+        pickupName : this.pickupName,
         dropLocation : this.dropLocation,
+        dropName : this.dropName,
         distance : this.distance,
         duration : this.duration,
         fare : this.fareAmount,

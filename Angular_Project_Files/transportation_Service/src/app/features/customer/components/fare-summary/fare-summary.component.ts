@@ -7,6 +7,11 @@ import { MapRouteComponent } from '../../../../shared/components/map-route/map-r
 import { MatProgressSpinnerModule, ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 
+interface Location {
+  pickupName : string,
+  dropName : string
+}
+
 @Component({
   selector: 'app-fare-summary',
   standalone: true,
@@ -16,6 +21,8 @@ import { CommonModule } from '@angular/common';
 })
 export class FareSummaryComponent implements OnInit {
   fareData: fare | null = null;
+  locationNames : Location | null = null;
+
   srcLat: number = 22.3511148;
   srcLng: number = 78.6677428;
 
@@ -30,6 +37,7 @@ export class FareSummaryComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
     this.fareData = history.state.fareData;
+    this.locationNames = history.state.locationNames
     if (this.fareData) {
       const [srcLatStr, srcLngStr] = this.fareData?.pickupLocation.split(',');
       const [destLatStr, destLngStr] = this.fareData?.dropLocation.split(',');

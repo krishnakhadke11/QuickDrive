@@ -17,18 +17,23 @@ import { fare } from '../../../../core/models/fareData';
 export class HomeComponent implements OnDestroy{
   fareSubscription : Subscription | undefined;
   pickupCoordinates: [number, number] | null = null;
+  placeNamePickup : string = ''
+
   dropCoordinates: [number, number] | null = null;
-  
+  placeNameDrop : string = ''
+
   constructor(private fareService : FareService,private router : Router){
 
   }
 
-  onPickupCoordinates(coordinates: [number, number]) {
-    this.pickupCoordinates = coordinates;
+  onPickupCoordinates(data : {coordinates: [number, number] , placeName : string}) {
+    this.pickupCoordinates = data.coordinates;
+    this.placeNamePickup = data.placeName;
   }
  
-  onDropCoordinates(coordinates: [number, number]) {
-    this.dropCoordinates = coordinates;
+  onDropCoordinates(data : {coordinates: [number, number] , placeName : string}) {
+    this.dropCoordinates = data.coordinates;
+    this.placeNameDrop = data.placeName
   }
 
   onCheckExpense(){
@@ -41,7 +46,7 @@ export class HomeComponent implements OnDestroy{
       this.fareSubscription = this.fareService.checkExpense(pickupCoordinatesStr,dropCoordinatesStr).subscribe((res : fare)=>{
         console.log(res);
         if(res){
-          this.router.navigate(['/customer/fare'],{state : {fareData : res}})
+          this.router.navigate(['/customer/fare'],{state : {fareData : res,locationNames : {pickupName : this.placeNamePickup,dropName : this.placeNameDrop}}})
         }
       })
     }else{

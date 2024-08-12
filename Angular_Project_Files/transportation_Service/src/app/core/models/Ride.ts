@@ -6,13 +6,15 @@ import { PaymentType } from "./PaymentType";
 export interface Ride {
     id: number;
     pickupLocation: string;
+    pickupName:string;
     dropLocation: string;
-    rating?: number; // Optional, as it might not be set initially
-    fare?: number;   // Optional, as it might not be set initially
-    distance?: string; // Optional
-    duration?: string; // Optional
-    paymentType?: PaymentType; // Optional
-    customer?: Customer; // Optional, since it can be null
-    cab?: Cab; // Optional, since it can be null
-    driver?: Driver; // Optional, since it can be null
+    dropName : string;
+    rating?: number
+    fare?: number;
+    distance?: string; 
+    duration?: string; 
+    paymentType?: PaymentType; 
+    customer?: Customer; 
+    cab?: Cab; 
+    driver?: Driver; 
 }

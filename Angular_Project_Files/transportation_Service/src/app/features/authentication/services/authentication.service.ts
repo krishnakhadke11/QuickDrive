@@ -38,11 +38,12 @@ export class AuthenticationService {
       }else
         return throwError(() => err)
     }),tap((res)=>{
-      console.log("tap")
+      console.log("tap",res.role)
     
       const user = new User(
         res.token,
-        res.refreshToken
+        res.refreshToken,
+        res.role
       ) 
       this.notif.showSuccess("Login Successfull")
       localStorage.setItem('user',JSON.stringify(user))
@@ -62,8 +63,8 @@ export class AuthenticationService {
   autoLogin() { 
     const localUser = localStorage.getItem('user')
     const user = localUser ? JSON.parse(localUser) : null
-    const newUserObj = new User(user._token,user._refreshToken);
     if(user){
+      const newUserObj = new User(user._token,user._refreshToken,user._role);
       this.user.next(newUserObj);
       return;
     }

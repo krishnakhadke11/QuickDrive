@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -16,14 +16,17 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent implements OnDestroy{
+export class SignupComponent implements OnInit , OnDestroy{
 signupSubscription : Subscription | undefined;
+isProfile : boolean = false;
 
   constructor(private authService : AuthenticationService,private router : Router){
 
   }
+  ngOnInit(): void {
+    
+  }
   
-
   signupForm : FormGroup = new FormGroup({
     firstName : new FormControl("",[Validators.required]),
     lastName : new FormControl("",[Validators.required]),

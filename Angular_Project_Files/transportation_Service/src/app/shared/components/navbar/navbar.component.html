@@ -7,4 +7,5 @@
     <a mat-button routerLink="/customer/rides" class="text-color" *ngIf="isLoggedIn">Rides</a>
     <a mat-button routerLink="/customer/payments" class="text-color" *ngIf="isLoggedIn">Payments</a>
     <a mat-button class="text-color" (click)="logout()" *ngIf="isLoggedIn">logout</a>
+    <a mat-button class="text-color" routerLink="/customer/profile" *ngIf="isLoggedIn">Profile<mat-icon >person</mat-icon></a>
 </mat-toolbar>

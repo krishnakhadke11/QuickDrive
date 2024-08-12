@@ -1,13 +1,14 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { PaymentService } from '../../services/payment.service';
+import { Payment } from '../../../../core/models/Payment';
 
-export interface Payment {
+export interface Payments {
   pickup: string;
   dropoff: string;
   paymentType: string;
@@ -15,7 +16,7 @@ export interface Payment {
   fare: number;
 }
 
-const PAYMENT_DATA: Payment[] = [
+const PAYMENT_DATA: Payments[] = [
   { pickup: 'Kharghar', dropoff: 'Parel', paymentType: 'CASH', paymentStatus: 'PENDING', fare: 700 },
   { pickup: 'Dadar', dropoff: 'Andheri', paymentType: 'ONLINE', paymentStatus: 'Paid', fare: 200 },
   { pickup: 'Prabhadevi', dropoff: 'Bandra', paymentType: 'CASH', paymentStatus: 'Paid', fare: 300 },
@@ -33,10 +34,22 @@ export class PaymentsComponent implements OnInit  {
   displayedColumns: string[] = ['srNo', 'pickup', 'dropoff', 'paymentType', 'paymentStatus', 'fare'];
   
   @ViewChild(MatSort) sort!: MatSort;
-  dataSource = new MatTableDataSource(PAYMENT_DATA);
+  @ViewChild(MatPaginatorModule) paginator!: MatPaginator;
+  dataSource = new MatTableDataSource<Payment>();
 
+  constructor(private paymentService : PaymentService) { }
 
   ngOnInit(): void {
-    this.dataSource.sort = this.sort;
+    this.loadPayments();
+  }
+
+  loadPayments(){
+    this.paymentService.getAllPayments().subscribe((data : Payment[]) =>{
+      if(data){
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 }

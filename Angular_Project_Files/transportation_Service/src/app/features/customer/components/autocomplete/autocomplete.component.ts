@@ -19,7 +19,7 @@ export class AutocompleteComponent {
   options: Feature[] = [];
   filteredOptions!: Observable<Feature[]>;
 
-  @Output() coordinatesSelected = new EventEmitter<[number, number]>();
+  @Output() coordinatesSelected = new EventEmitter<{coordinates : [number, number] , placeName : string}>();
 
   constructor(private mapboxService : MapboxService){ 
 
@@ -58,7 +58,7 @@ export class AutocompleteComponent {
 
   onOptionSelected(option: Feature) {
     if (option && option.geometry && option.geometry.coordinates) {
-      this.coordinatesSelected.emit(option.geometry.coordinates);
+      this.coordinatesSelected.emit({coordinates : option.geometry.coordinates , placeName : option.text});
     }
   }
 }
