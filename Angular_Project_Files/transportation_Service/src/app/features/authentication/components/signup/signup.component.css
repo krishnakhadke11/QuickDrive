@@ -10,12 +10,13 @@
     align-self: flex-start;
 }
 .form-container{
-    height: 50%;
-    width: 20%;
+    height: 45%;
+    width: 22%;
    display : flex;
    flex-direction: column;
    align-items: center;
-   margin: 5% 0% auto 0%;
+   gap: 0;
+   /* margin: 5% 0% auto 0%; */
 }
 
 .mat-divider{
@@ -43,4 +44,18 @@
 }
 .inline-inp{
     width: 47% !important;
+}
+
+.portal-section{
+    align-self: flex-start;
+}
+
+.portal-link{
+    color: blue;
+    cursor: pointer;
+}
+
+.portal-link:hover{
+    border-bottom: 1px solid blue;
+
 }

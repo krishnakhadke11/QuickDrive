@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="main-content">
+    <!-- <p *ngIf="isOperational">You are already Operational</p> -->
+    <form
+      [formGroup]="addDriverOperationalForm"
+      class="form-container"
+      *ngIf="!isDriverOps; else removeBtn"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Start Time</mat-label>
+        <input
+          type="time"
+          [placeholder]="'eg. 11:00 AM'"
+          formControlName="startTime"
+          matInput
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>End Time</mat-label>
+        <input type="time" formControlName="endTime" matInput />
+      </mat-form-field>
+      <button
+        class="add-button"
+        [disabled]="addDriverOperationalForm.invalid || cabId.invalid"
+        mat-raised-button
+        (click)="onSubmit()"
+      >
+        Add Cab
+      </button>
+    </form>
+    <ng-template #removeBtn>
+      <button
+        class="add-button"
+        mat-raised-button
+        (click)="onLogout()"
+      >
+        Logout
+      </button>
+    </ng-template>
+
+    <div class="list-container" *ngIf="!isDriverOps; else driverOpsDetails">
+      <div appearance="fill">
+        <mat-label>Select Cab</mat-label>
+        <mat-selection-list [formControl]="cabId" [multiple]="false">
+          @for (cab of driverCabs; track cab) {
+          <mat-list-option [value]="cab.id">{{ cab.model }}</mat-list-option>
+          }
+        </mat-selection-list>
+      </div>
+    </div>
+    <ng-template style="display: block" #driverOpsDetails>
+      <div>
+        <p>Your Operational now!</p>
+        <p><b>Cab</b> : {{ isDriverOps?.cab?.model }}</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

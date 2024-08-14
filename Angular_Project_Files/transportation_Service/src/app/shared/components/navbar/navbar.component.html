@@ -3,9 +3,17 @@
     <div class="spacer"></div>
     <a mat-button routerLink="login" class="text-color" *ngIf="!isLoggedIn">Login</a><span *ngIf="!isLoggedIn">|</span>
     <a mat-button routerLink="signup" class="text-color" *ngIf="!isLoggedIn">SignUp</a>
-    <a mat-button routerLink="/customer" class="text-color"  *ngIf="isLoggedIn">Home</a>
-    <a mat-button routerLink="/customer/rides" class="text-color" *ngIf="isLoggedIn">Rides</a>
-    <a mat-button routerLink="/customer/payments" class="text-color" *ngIf="isLoggedIn">Payments</a>
+    <a mat-button routerLink="/customer" class="text-color"  *ngIf="isLoggedIn && isCustomer">Home</a>
+    <a mat-button routerLink="/customer/rides" class="text-color" *ngIf="isLoggedIn && isCustomer">Rides</a>
+    <a mat-button routerLink="/customer/payments" class="text-color" *ngIf="isLoggedIn && isCustomer">Payments</a>
+    <a mat-button class="text-color" routerLink="/customer/profile" *ngIf="isLoggedIn && isCustomer">Profile<mat-icon >person</mat-icon></a>
+
+    <!-- Driver -->
+    <a mat-button routerLink="/driver" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Home</a>
+    <a mat-button routerLink="/driver/cab" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Cabs</a>
+    <a mat-button routerLink="/driver/operational" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Operational</a>
+    <a mat-button routerLink="/driver/riderequest" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Ride Requests</a>
+
+
     <a mat-button class="text-color" (click)="logout()" *ngIf="isLoggedIn">logout</a>
-    <a mat-button class="text-color" routerLink="/customer/profile" *ngIf="isLoggedIn">Profile<mat-icon >person</mat-icon></a>
 </mat-toolbar>

@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent implements OnInit,OnDestroy{
   isLoggedIn : boolean = false;
+  isCustomer : boolean = false;
   private userSubject : Subscription | undefined;
   constructor(private authService : AuthenticationService){
 
@@ -26,6 +27,11 @@ export class NavbarComponent implements OnInit,OnDestroy{
     this.userSubject = this.authService.user.subscribe((user: User | null) => {
       // console.log(user)
       this.isLoggedIn = user ? true : false;
+      if(user?.role === 'CUSTOMER'){
+        this.isCustomer = true
+      }else{
+        this.isCustomer = false;
+      }
     });
   }
 

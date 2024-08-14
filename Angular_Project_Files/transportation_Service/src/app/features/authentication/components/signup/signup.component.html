@@ -1,7 +1,8 @@
 <div class="container">
-    <form  [formGroup]="signupForm" class="form-container">
+    <form  [formGroup]="isCustomer?customerSignupForm : driverSignupForm" class="form-container" [style]="isCustomer?'margin:5% 0% auto 0%' : 'margin:2% 0% auto 0%'">
         <div class="signup-header">
-            <p style="font-size: 30px;line-height:10px;">SignUp</p>
+            <p style="font-size: 30px;line-height:10px;" *ngIf="isCustomer">Customer SignUp</p>
+            <p style="font-size: 30px;line-height:10px;" *ngIf="!isCustomer">Driver SignUp</p>
         </div>
         <mat-divider ></mat-divider>
         <div class="inline-inp-container">
@@ -30,7 +31,13 @@
         <mat-label>Address</mat-label>
         <textarea formControlName="address" matInput></textarea>
       </mat-form-field>
-      <button mat-fab [disabled]="signupForm.invalid" class="signin-btn" (click)="onSubmit()">SignUp</button>
+      <mat-form-field *ngIf="!isCustomer" appearance="outline" class="signup-inp">
+        <mat-label>Drivers License</mat-label>
+        <input formControlName="driversLicense" matInput/>
+      </mat-form-field>
+      <p class="portal-section"><u>Want to login in {{isCustomer? 'Driver' : 'Customer'}} portal?</u> <span class="portal-link" style="margin-left: 3px;" (click)="toggleProfile()">{{isCustomer? 'Driver' : 'Customer'}}</span></p>
+
+      <button mat-fab [disabled]="isCustomer ? customerSignupForm.invalid :  driverSignupForm.invalid" class="signin-btn" (click)="isCustomer? customerSignup() : driverSignup()">SignUp</button>
     </form>
 </div>
 

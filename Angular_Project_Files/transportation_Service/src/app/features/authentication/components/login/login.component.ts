@@ -8,17 +8,20 @@ import {MatInputModule} from '@angular/material/input';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Role } from '../../../../core/models/Role';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule,MatIconModule,MatInputModule,MatDividerModule,MatButtonModule,ReactiveFormsModule,FormsModule],
+  imports: [MatFormFieldModule,MatIconModule,MatInputModule,MatDividerModule,MatButtonModule,ReactiveFormsModule,FormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnDestroy{
   loginSubscription : Subscription | undefined;
+  isCustomer : boolean = true;
   constructor(private authService : AuthenticationService,private router : Router){
 
   }
@@ -31,13 +34,23 @@ export class LoginComponent implements OnDestroy{
 
   onSubmit(){
     const data = this.loginForm.value;
-    this.loginSubscription =  this.authService.customerLogin(data).subscribe((res) =>{
+    const role : Role= this.isCustomer ? 'CUSTOMER' : 'DRIVER'
+    this.loginSubscription =  this.authService.login(data,role).subscribe((res) =>{
       console.log(res);
-      this.router.navigate(['/customer'])
+      if(res.role === 'CUSTOMER'){
+        this.router.navigate(['/customer'])
+      }
+      if(res.role === 'DRIVER'){
+        this.router.navigate(['/driver'])
+      }
     })
   }
 
   ngOnDestroy(): void {
     this.loginSubscription?.unsubscribe()
+  }
+
+  toggleProfile(){
+    this.isCustomer = !this.isCustomer;
   }
 }

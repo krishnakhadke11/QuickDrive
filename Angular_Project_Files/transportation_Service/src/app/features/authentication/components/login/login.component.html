@@ -1,7 +1,8 @@
 <div  class="container">
     <form [formGroup]="loginForm" class="form-container">
         <div class="login-header">
-            <p style="font-size: 30px;line-height:10px;">Login</p>
+            <p style="font-size: 30px;line-height:10px;" >Login</p>
+            <!-- <p style="font-size: 30px;line-height:10px;" *ngIf="!isCustomer">Driver Login</p> -->
         </div>
         <mat-divider ></mat-divider>
       <mat-form-field  appearance="outline" class="login-form">
@@ -12,6 +13,7 @@
         <mat-label>Password</mat-label>
         <input type="password" formControlName="password" matInput />
       </mat-form-field>
+      <!-- <p class="portal-section"><u>Want to login in {{isCustomer? 'Driver' : 'Customer'}} portal?</u> <span class="portal-link" (click)="toggleProfile()">{{isCustomer? 'Driver' : 'Customer'}}</span></p> -->
       <button mat-fab [disabled]="loginForm.invalid" class="btn" (click)="onSubmit()">SignIn</button>
     </form>
 </div>

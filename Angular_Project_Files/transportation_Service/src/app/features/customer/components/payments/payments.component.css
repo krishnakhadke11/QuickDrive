@@ -13,16 +13,20 @@
     text-align: center;
   }
   
-  /* .mat-row:nth-child(even) .mat-cell {
-    background-color: #E3F2FD;
-  }
-  
-  .mat-row:nth-child(odd) .mat-cell {
-    background-color: #0D47A1;
-    color: white;
-  } */
-  
   .mat-table {
     width: 100%;
   }
+
+.container{
+  width: 100%;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
+.container mat-card-title{
+  margin: 10px;
+  font-size: 20px;
+  font-weight: 25px;
+}

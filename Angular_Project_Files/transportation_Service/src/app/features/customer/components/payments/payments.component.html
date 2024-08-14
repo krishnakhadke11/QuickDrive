@@ -1,49 +1,60 @@
-<mat-card>
-  <mat-card-title>Payments</mat-card-title>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-table" matSort>
+<div class="container">
+  <mat-card>
+    <mat-card-title><u>Payments</u></mat-card-title>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+        <!-- Sr No. Column -->
+        <ng-container matColumnDef="srNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sr No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
 
-      <!-- Sr No. Column -->
-      <ng-container matColumnDef="srNo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr No. </th>
-        <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
-      </ng-container>
+        <!-- Pickup Column -->
+        <ng-container matColumnDef="pickup">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="pickupName">
+            Pickup
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.pickupName }}</td>
+        </ng-container>
 
-      <!-- Pickup Column -->
-      <ng-container matColumnDef="pickup">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pickup </th>
-        <td mat-cell *matCellDef="let element"> {{ element.ride.pickupName }} </td>
-      </ng-container>
+        <!-- Dropoff Column -->
+        <ng-container matColumnDef="dropoff">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="dropName">
+            Dropoff
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.dropName }}</td>
+        </ng-container>
 
-      <!-- Dropoff Column -->
-      <ng-container matColumnDef="dropoff">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dropoff </th>
-        <td mat-cell *matCellDef="let element"> {{ element.ride.dropName }} </td>
-      </ng-container>
+        <!-- Payment Type Column -->
+        <ng-container matColumnDef="paymentType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="paymentType">
+            Payment Type
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.paymentType }}</td>
+        </ng-container>
 
-      <!-- Payment Type Column -->
-      <ng-container matColumnDef="paymentType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Type </th>
-        <td mat-cell *matCellDef="let element"> {{ element.paymentType }} </td>
-      </ng-container>
+        <!-- Payment Status Column -->
+        <ng-container matColumnDef="paymentStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="paymentStatus">
+            Payment Status
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.paymentStatus }}
+          </td>
+        </ng-container>
 
-      <!-- Payment Status Column -->
-      <ng-container matColumnDef="paymentStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Status </th>
-        <td mat-cell *matCellDef="let element"> {{ element.paymentStatus }} </td>
-      </ng-container>
+        <!-- Fare Column -->
+        <ng-container matColumnDef="fare">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="fare">Fare</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.fare | currency : "INR" }}
+          </td>
+        </ng-container>
 
-      <!-- Fare Column -->
-      <ng-container matColumnDef="fare">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fare </th>
-        <td mat-cell *matCellDef="let element"> {{ element.ride.fare | currency:'INR' }} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSize]="10"></mat-paginator>
-  </div>
-</mat-card>
-
-  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSize]="3"></mat-paginator>
+    </div>
+  </mat-card>
+</div>

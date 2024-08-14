@@ -26,5 +26,10 @@ export const routes: Routes = [
         path: 'customer',
         loadChildren: () =>
           import('./features/customer/customer.routes').then((mod) => mod.CUSTOMER_ROUTES),
-      },
+    },
+    {
+        path: 'driver',
+        loadChildren: () =>
+          import('./features/driver/driver.routes').then((mod) => mod.DRIVER_ROUTES),
+    },
 ];

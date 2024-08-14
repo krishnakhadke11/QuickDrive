@@ -5,6 +5,7 @@ import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthResponse } from '../../../core/models/AuthResponse';
 import { User } from '../../../core/models/User';
+import { Role } from '../../../core/models/Role';
 
 
 @Injectable({
@@ -30,7 +31,19 @@ export class AuthenticationService {
     }))
   }
 
-  customerLogin(data : any){
+  driverSignup(data : any){
+    return this.http.post(this.base_url + `auth/driver/signup`,data).pipe(catchError(err =>{
+      if(err.status === 400){
+        return throwError(()=> "Please add your right details")
+      }else
+        return throwError(() => err)
+    }),tap((res)=>{
+      console.log(res)
+      this.notif.showSuccess("Signup Successfull")
+    }))
+  }
+
+  login(data : any,role : Role){
     
     return this.http.post<AuthResponse>(this.base_url + `auth/signin`,data).pipe(catchError(err =>{
       if(err.status === 400){
@@ -45,13 +58,11 @@ export class AuthenticationService {
         res.refreshToken,
         res.role
       ) 
+
       this.notif.showSuccess("Login Successfull")
       localStorage.setItem('user',JSON.stringify(user))
       this.user.next(user);
-      //console.log("From Authentication Service : Login Successfull")
-      // 
     }))
-    // console.log(data)
   }
 
   logout(){
