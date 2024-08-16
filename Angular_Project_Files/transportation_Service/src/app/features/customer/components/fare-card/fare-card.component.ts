@@ -8,7 +8,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
-import { RideRequestService } from '../../services/ride-request.service';
+import { RideRequestService } from '../../../../core/services/ride-request.service';
 import { RideRequest } from '../../../../core/models/RideRequest';
 import { PaymentType } from '../../../../core/models/PaymentType';
 import { SeatingCapacity } from '../../../../core/models/SeatingCapacity';

@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="main-content">
+        <p style="border-bottom: 1px solid rgba(0, 0, 0, 0.459);">Please Confirm : Has the customer completed the payment of the ride?</p>
+        <br>
+        <h6>Ride Details  </h6>
+        <p><strong>Pickup : </strong> Kharghar</p>
+        <p><strong>Drop : </strong> Senapati Bapat Marg</p>
+        <p><strong>Fare : </strong> {{ 500 | currency : 'INR'}}</p>
+        <p><strong>Distance : </strong> 500Km</p>
+        <p><strong>Duration : </strong> 1hr 20 min</p>
+        <p><strong>Customer Fullname : </strong> 1hr 20 min</p>
+        <p><strong>Customer Email : </strong> 1hr 20 min</p>
+        <div class="action-btns">
+            <button mat-raised-button color="primary" (click)="endRide()"> Yes</button>
+        </div>
+    </div>
+</div>

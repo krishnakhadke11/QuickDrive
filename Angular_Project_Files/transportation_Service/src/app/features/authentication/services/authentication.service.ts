@@ -77,6 +77,13 @@ export class AuthenticationService {
     if(user){
       const newUserObj = new User(user._token,user._refreshToken,user._role);
       this.user.next(newUserObj);
+      if(newUserObj.role === 'CUSTOMER'){
+        this.router.navigate(['/customer'])
+      }else if(newUserObj.role === 'DRIVER'){
+        this.router.navigate(['/driver'])
+      }else{
+        this.router.navigate(['/login'])
+      }
       return;
     }
     this.router.navigate(['/login'])

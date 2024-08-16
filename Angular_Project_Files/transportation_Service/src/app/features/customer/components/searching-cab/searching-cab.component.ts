@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { RideRequest } from '../../../../core/models/RideRequest';
-import { RideRequestService } from '../../services/ride-request.service';
+import { RideRequestService } from '../../../../core/services/ride-request.service';
 import { CommonModule } from '@angular/common';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -20,9 +20,11 @@ import { Subscription } from 'rxjs';
 export class SearchingCabComponent implements OnInit, OnDestroy {
   private intervalVar: any;
   private timeoutVar: any;
+  private timeEnded : boolean = false;
   private rideRequestSubscription: Subscription | null = null;
+  private deleteRideReqSubscription: Subscription | null = null;
 
-  rideReq: any;
+  rideReq: RideRequest | null = null;
   isSearching: boolean = true;
   rideRequestResponseData: RideRequestResponse | null = null;
 
@@ -35,6 +37,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    //Received From Fare-Card
     this.rideReq = history.state.rideRequest;
     console.log('ride req :', this.rideReq);
     if (this.rideReq) {
@@ -48,7 +51,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
   startPolling(): void {
     this.intervalVar = setInterval(() => {
       this.rideRequestSubscription = this.rideReqService
-        .getRideRequest(this.rideReq.id)
+        .getRideRequest(this.rideReq?.id!)
         .subscribe((res: RideRequestResponse) => {
           this.rideRequestResponseData = res ? res : null;
 
@@ -59,6 +62,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
             });
             this.dialogAfterCloseAction()
             this.stopPolling()
+            this.timeEnded = true;
             console.log('Ride Accepted');
           }
         });
@@ -71,6 +75,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
       this.isSearching = false;
       this.dialogAfterCloseAction()
       this.stopPolling();
+      this.timeEnded = true;
     }, 30000);
   }
 
@@ -92,7 +97,22 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteRideReq() {
+    console.log("del : ",this.rideReq?.id)
+    this.rideReqService.deleteRideReq(this.rideReq?.id!).subscribe((res)=>{
+      console.log(res);
+    })
+  }
+
   ngOnDestroy(): void {
     this.stopPolling();
+    if(!this.timeEnded){
+      console.log("hello")
+      this.deleteRideReq()
+    } 
+
+    if(this.deleteRideReqSubscription){
+      this.deleteRideReqSubscription.unsubscribe()
+    }
   }
 }

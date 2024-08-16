@@ -36,6 +36,7 @@ export class FareSummaryComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit(): void {
+    //Received From Home.component
     this.fareData = history.state.fareData;
     this.locationNames = history.state.locationNames
     if (this.fareData) {
@@ -50,7 +51,7 @@ export class FareSummaryComponent implements OnInit {
     }
 
     if (!this.fareData) {
-      // this.router.navigate(['/customer']);
+      this.router.navigate(['/customer']);
     }
   }
 }
