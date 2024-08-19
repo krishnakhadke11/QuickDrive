@@ -5,6 +5,7 @@
 }
 .edit-button{
     width: 20%;
+    margin: 15px;
     align-self: flex-end;
 }
 .container{

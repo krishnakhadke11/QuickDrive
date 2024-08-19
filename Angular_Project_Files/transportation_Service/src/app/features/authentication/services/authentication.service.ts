@@ -80,7 +80,7 @@ export class AuthenticationService {
       if(newUserObj.role === 'CUSTOMER'){
         this.router.navigate(['/customer'])
       }else if(newUserObj.role === 'DRIVER'){
-        this.router.navigate(['/driver'])
+        // this.router.navigate(['/driver'])
       }else{
         this.router.navigate(['/login'])
       }

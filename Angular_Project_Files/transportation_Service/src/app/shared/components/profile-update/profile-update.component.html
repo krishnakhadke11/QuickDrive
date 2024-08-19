@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field  *ngIf="userDriver !== null" appearance="outline" class="signup-inp">
-        <mat-label>Address</mat-label>
+        <mat-label>Driving License</mat-label>
         <textarea formControlName="driversLicense" matInput></textarea>
       </mat-form-field>
       <button mat-fab [disabled]="profileUpdate.invalid" class="signin-btn" (click)="onUpdate()">Update</button>

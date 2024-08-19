@@ -1,4 +1,4 @@
-<div class="container-1" *ngIf="!isHired && rideRequests.length > 0">
+<div class="container" *ngIf="!isHired && rideRequests.length > 0">
     <app-ridereq-card
       *ngFor="let req of rideRequests"
       [reqId]="req.id!"
@@ -11,11 +11,11 @@
     ></app-ridereq-card>
 </div>
 
-<div class="container-2" *ngIf="rideRequests.length <= 0">
-  <h6>No Ride Requests Found</h6>
+<div class="container" *ngIf="rideRequests.length <= 0">
+  <h6>{{message}}</h6>
 </div>
 
-<div class="container-2" *ngIf="isHired && hiredRide">
+<div class="container" *ngIf="isHired && hiredRide">
   <app-ridereq-card
     [rideId]="hiredRide.id"
     [pickup]="hiredRide.pickupName"

@@ -88,6 +88,28 @@ export class ProfileUpdateComponent implements OnInit {
           this.router.navigate(['/customer'])
         }
       });
+    }else if(this.userDriver){
+      const updateDriver : Driver = {
+        id : this.userDriver.id,
+        driversLicense : this.profileUpdate.value.driversLicense,
+        user : {
+          id: this.userDriver.user.id,
+          firstName: this.profileUpdate.value.firstName,
+          lastName: this.profileUpdate.value.lastName,
+          email: this.profileUpdate.value.email,
+          phoneNumber: this.profileUpdate.value.phoneNumber,
+          address: this.profileUpdate.value.address,
+          role: this.userDriver.user.role,
+        }
+      }
+
+      console.log("updateCustomer : ",updateDriver)
+      this.userService.updateDriver(updateDriver).subscribe((res) =>{
+        if(res){
+          this.notif.showSuccess("User Details are updated successfully")
+          this.router.navigate(['/customer'])
+        }
+      });
     }
   }
 }

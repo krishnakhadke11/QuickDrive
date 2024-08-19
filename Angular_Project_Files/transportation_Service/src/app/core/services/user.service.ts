@@ -53,6 +53,12 @@ export class UserService implements  OnDestroy{
     }));
   }
 
+  updateDriver(driverData : Driver) {
+    return this.http.put<Driver>(environment.BASE_URL + 'driver',driverData).pipe(tap((res : Driver) =>{
+      this.userDriver.next(res);
+    }));
+  }
+
   ngOnDestroy(): void {
       this.authUserSubscription?.unsubscribe();
       this.customerSubscription?.unsubscribe();

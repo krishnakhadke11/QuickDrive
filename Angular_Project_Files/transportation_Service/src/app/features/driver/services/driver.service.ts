@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Ride } from '../../../core/models/Ride';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { Cab } from '../../../core/models/Cab';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,14 @@ export class DriverService {
 
   getLatestRideOfDriver() : Observable<Ride>{
     return this.http.get<Ride>(this.url + 'driver/ride/latest')
+  }
+
+  getAllRidesOfDriver() : Observable<Ride[]>{
+    return this.http.get<Ride[]>(this.url + `driver/ride`)
+  }
+
+  getDriverOwnedCabs() : Observable<Cab[]>{
+    return this.http.get<Cab[]>(this.url + 'driver/cabs')
   }
 
   endRide(rideId : number) :Observable<string>{

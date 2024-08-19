@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorService } from './error.service';
 import { LoggingService } from './logging.service';
 import { NotificationService } from './notification.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler{
@@ -17,9 +18,9 @@ export class GlobalErrorHandler implements ErrorHandler{
 
     if (error instanceof HttpErrorResponse) {
         // Server Error
-        message = this.errorService.getServerMessage(error);
-        stackTrace = this.errorService.getServerStack(error);
-        this.notifier.showError(message);
+          message = this.errorService.getServerMessage(error);
+          stackTrace = this.errorService.getServerStack(error);
+          this.notifier.showError(message);
         
     } else {
         // Client Error

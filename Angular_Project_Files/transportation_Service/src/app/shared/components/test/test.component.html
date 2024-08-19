@@ -1,1 +1,38 @@
-<div id="map" style="width: 100%; height: 50%;"></div>
+<!-- <div id="map" style="width: 100%; height: 50%;"></div> -->
+
+<div class="profile-container mat-elevation-z8">
+    <div class="profile-header">
+      <h2>User Profile</h2>
+    </div>
+    <div class="profile-details">
+      <div class="profile-row">
+        <label>First Name:</label>
+        <span>{{ user.firstName }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Last Name:</label>
+        <span>{{ user.lastName }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Email:</label>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Phone Number:</label>
+        <span>{{ user.phoneNumber }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Address:</label>
+        <span>{{ user.address }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Role:</label>
+        <span>{{ user.role }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Driving License:</label>
+        <span>{{ user.drivingLicense }}</span>
+      </div>
+      <button mat-raised-button color="primary" (click)="editProfile()">Edit</button>
+    </div>
+  </div>

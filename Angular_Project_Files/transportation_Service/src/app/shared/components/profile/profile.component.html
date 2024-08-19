@@ -1,7 +1,5 @@
 <div class="container" *ngIf="!isEdit">
   <div class="button-card-box">
-    <button class="edit-button" mat-raised-button (click)="onEdit()">Edit</button>
-
     <div class="profile-container">
       <h2>User Profile</h2>
       <div class="profile-card">
@@ -42,7 +40,9 @@
         </div>
       </div>
     </div>
+    <button class="edit-button" mat-raised-button (click)="onEdit()">Edit</button>
   </div>
 </div>
 
-<app-profile-update *ngIf="isEdit" [userCustomer]="userCustomer"></app-profile-update>
+<app-profile-update *ngIf="isEdit && userCustomer" [userCustomer]="userCustomer"></app-profile-update>
+<app-profile-update *ngIf="isEdit && userDriver" [userDriver]="userDriver"></app-profile-update>

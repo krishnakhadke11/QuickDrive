@@ -4,6 +4,8 @@ import { CabComponent } from "./components/cab/cab.component";
 import { OperationalComponent } from "./components/operational/operational.component";
 import { RideRequestComponent } from "./components/riderequest/riderequest.component";
 import { EndRideComponent } from "./components/end-ride/end-ride.component";
+import { ProfileComponent } from "../../shared/components/profile/profile.component";
+import { TestComponent } from "../../shared/components/test/test.component";
 
 
 export const DRIVER_ROUTES : Route[] = [
@@ -16,7 +18,7 @@ export const DRIVER_ROUTES : Route[] = [
         component : CabComponent
     },
     {
-        path : 'operational',
+        path : 'operation',
         component : OperationalComponent
     },
     {
@@ -26,5 +28,13 @@ export const DRIVER_ROUTES : Route[] = [
     {
         path : 'end-ride',
         component : EndRideComponent
+    },
+    {
+        path : 'profile',
+        component : ProfileComponent
+    },
+    {
+        path : 'test',
+        component : TestComponent
     },
 ]

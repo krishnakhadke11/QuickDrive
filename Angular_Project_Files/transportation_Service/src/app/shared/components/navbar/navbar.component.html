@@ -11,8 +11,9 @@
     <!-- Driver -->
     <a mat-button routerLink="/driver" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Home</a>
     <a mat-button routerLink="/driver/cab" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Cabs</a>
-    <a mat-button routerLink="/driver/operational" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Operational</a>
+    <a mat-button routerLink="/driver/operation" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Operations</a>
     <a mat-button routerLink="/driver/riderequest" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Ride Requests</a>
+    <a mat-button routerLink="/driver/profile" class="text-color"  *ngIf="isLoggedIn && !isCustomer">Profile<mat-icon >person</mat-icon></a>
 
 
     <a mat-button class="text-color" (click)="logout()" *ngIf="isLoggedIn">logout</a>
