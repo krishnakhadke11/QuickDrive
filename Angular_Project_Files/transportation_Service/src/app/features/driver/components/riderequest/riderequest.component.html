@@ -11,7 +11,7 @@
     ></app-ridereq-card>
 </div>
 
-<div class="container" *ngIf="rideRequests.length <= 0">
+<div class="container" *ngIf="!isHired && rideRequests.length <= 0">
   <h6>{{message}}</h6>
 </div>
 

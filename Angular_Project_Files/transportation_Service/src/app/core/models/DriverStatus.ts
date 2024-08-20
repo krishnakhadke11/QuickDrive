@@ -1,0 +1,1 @@
+export type DriverStatus ='GO ONLINE'| 'AVAILABLE' | 'HIRED';

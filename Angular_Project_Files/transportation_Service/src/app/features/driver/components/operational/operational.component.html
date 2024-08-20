@@ -14,6 +14,9 @@
           formControlName="startTime"
           matInput
         />
+        <mat-error *ngIf="addDriverOperationalForm.hasError('timeDifference')">
+          End time must be at least 7 hours after start time.
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>End Time</mat-label>

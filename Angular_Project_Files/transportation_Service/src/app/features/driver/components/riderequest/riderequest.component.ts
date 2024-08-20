@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RideRequest } from '../../../../core/models/RideRequest';
 import { RideRequestService } from '../../../../core/services/ride-request.service';
-import { catchError, EMPTY, Subscription, throwError } from 'rxjs';
+import { Subscription,  } from 'rxjs';
 import { RidereqCardComponent } from '../ridereq-card/ridereq-card.component';
 import { CommonModule } from '@angular/common';
 import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
@@ -9,7 +9,7 @@ import { DriverOpsService } from '../../services/driver-ops.service';
 import { Ride } from '../../../../core/models/Ride';
 import { DriverService } from '../../services/driver.service';
 import { NotificationService } from '../../../../core/services/notification.service';
-import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-riderequest',
@@ -33,18 +33,20 @@ export class RideRequestComponent implements OnInit,OnDestroy{
   }
 
   ngOnInit(): void {
-    this.getAllRideReq();
     this.checkIfOps();
+    this.getAllRideReq(); 
   }
 
   checkIfOps(){
-    this.driverOpsSubscription = this.driverOpsService.checkIfOperational().subscribe({next : (res : DriverOpsRes) =>{
-      this.driverOps = res;
-      if(res && res.status === 'AVAILABLE'){
-        this.isHired = false;
-      }else if(res && res.status === 'HIRED'){
-        this.isHired = true;
-        this.getLatestRideIfHired();
+    this.driverOpsSubscription = this.driverOpsService.checkIfOperational().subscribe({next : (res) =>{
+     if(res.data){
+        this.driverOps = res.data!;
+        if(res.data && res.data.status === 'AVAILABLE'){
+          this.isHired = false;
+        }else if(res.data && res.data.status === 'HIRED'){
+          this.isHired = true;
+          this.getLatestRideIfHired();
+        }
       }
     }})
   }
@@ -52,8 +54,9 @@ export class RideRequestComponent implements OnInit,OnDestroy{
   getLatestRideIfHired(){
    this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
       console.log(res);
-      console.log(this.isHired)
       if(this.isHired){
+        console.log(this.isHired)
+        console.log(res)
         this.hiredRide = res;
       }
     })

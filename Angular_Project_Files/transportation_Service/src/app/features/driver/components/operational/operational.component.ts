@@ -46,10 +46,27 @@ export class OperationalComponent implements OnInit{
         this.driverCabs = res;
       })
 
-      this.checkOperationalSubscription = this.driverOpsService.checkIfOperational().subscribe((res : DriverOpsRes) =>{
-        console.log(res)
-        this.isDriverOps = res;
+      this.checkOperationalSubscription = this.driverOpsService.checkIfOperational().subscribe((res ) =>{
+        if(res.data){
+          this.isDriverOps = res.data;
+        }
       })
+      
+      this.setStartTime()
+  }
+
+  setStartTime(){
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const currentTime = `${hours}:${minutes}`;
+  
+    this.addDriverOperationalForm.patchValue({
+      startTime: currentTime
+    });
+  
+    // Disable the start time input
+    this.addDriverOperationalForm.get('startTime')?.disable();
   }
 
   onSubmit(){

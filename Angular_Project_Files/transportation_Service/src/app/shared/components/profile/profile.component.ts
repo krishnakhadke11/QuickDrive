@@ -41,6 +41,10 @@ export class ProfileComponent implements OnInit{
   }
 
   onEdit() {
-    this.isEdit = true;
+    this.isEdit = !this.isEdit;
+  }
+
+  backBtn(isEdit : boolean){
+    this.onEdit();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { Driver } from '../../../core/models/Driver';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile-update',
   standalone: true,
-  imports: [MatFormFieldModule,MatInputModule,MatButtonModule,MatDividerModule,ReactiveFormsModule,CommonModule],
+  imports: [MatFormFieldModule,MatInputModule,MatButtonModule,MatDividerModule,ReactiveFormsModule,CommonModule,MatIconModule],
   templateUrl: './profile-update.component.html',
   styleUrl: './profile-update.component.css'
 })
@@ -23,6 +24,9 @@ export class ProfileUpdateComponent implements OnInit {
 
   @Input() userCustomer : Customer | null = null;
   @Input() userDriver : Driver | null = null;
+
+  @Output() isEditEmitter = new EventEmitter<boolean>();
+
 
   constructor(private userService : UserService,private router : Router,private notif : NotificationService){
     this.profileUpdate = new FormGroup({
@@ -62,10 +66,11 @@ export class ProfileUpdateComponent implements OnInit {
         driversLicense : this.userDriver.driversLicense
       });
     }
-
-
   }
 
+  toggleEdit(){
+    this.isEditEmitter.emit(false)
+  }
   onUpdate(){
     if(this.userCustomer){  
         console.log(this.profileUpdate.value)

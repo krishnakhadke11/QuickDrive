@@ -1,5 +1,4 @@
-<!-- <div id="map" style="width: 100%; height: 50%;"></div> -->
-
+/
 <div class="profile-container mat-elevation-z8">
     <div class="profile-header">
       <h2>User Profile</h2>
@@ -26,12 +25,12 @@
         <span>{{ user.address }}</span>
       </div>
       <div class="profile-row">
-        <label>Role:</label>
-        <span>{{ user.role }}</span>
-      </div>
-      <div class="profile-row">
         <label>Driving License:</label>
         <span>{{ user.drivingLicense }}</span>
+      </div>
+      <div class="profile-row">
+        <label>Role:</label>
+        <span>{{ user.role }}</span>
       </div>
       <button mat-raised-button color="primary" (click)="editProfile()">Edit</button>
     </div>

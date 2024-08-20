@@ -1,6 +1,8 @@
 <div class="container">
+  
     <form  [formGroup]="profileUpdate" class="form-container">
         <div class="signup-header">
+            <span (click)="toggleEdit()" class="back-arrow"><mat-icon>arrow_back</mat-icon></span>
             <p style="font-size: 30px;line-height:10px;">Profile Update</p>
         </div>
         <mat-divider ></mat-divider>
