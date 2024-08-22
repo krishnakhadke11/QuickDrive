@@ -3,6 +3,7 @@ import { LandingPageComponent } from './shared/components/landing-page/landing-p
 import { LoginComponent } from './features/authentication/components/login/login.component';
 import { SignupComponent } from './features/authentication/components/signup/signup.component';
 import { TestComponent } from './shared/components/test/test.component';
+import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,10 @@ export const routes: Routes = [
     {
         path : 'test',
         component : TestComponent
+    },
+    {
+        path : 'unauthorized',
+        component : UnauthorizedComponent
     },
     {
         path: 'customer',

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddcabDialogComponent } from '../addcab-dialog/addcab-dialog.component';
@@ -11,17 +11,17 @@ import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { CurrencyPipe } from '@angular/common';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-cab',
   standalone: true,
-  imports: [MatButtonModule,MatCardModule,MatPaginatorModule,MatPaginator,CurrencyPipe,MatTableModule],
+  imports: [MatButtonModule,MatCardModule,MatPaginatorModule,MatPaginator,CurrencyPipe,MatTableModule,MatSortModule],
   templateUrl: './cab.component.html',
   styleUrl: './cab.component.css'
 })
-export class CabComponent implements OnInit, OnDestroy {
+export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   UserSubscription : Subscription | null = null;
   CabSubscription : Subscription | null = null;
@@ -40,12 +40,16 @@ export class CabComponent implements OnInit, OnDestroy {
     this.getAllCabs();
   }
   
+  ngAfterViewInit(): void {
+    console.log(this.sort)
+      this.dataSource.sort = this.sort
+      this.dataSource.paginator = this.paginator;
+  }
   onAddCab(){
     const dialogRef = this.dialog.open(AddcabDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if(result instanceof FormGroup){
-
         this.addCabAction(result);
       }
     });
@@ -66,6 +70,7 @@ export class CabComponent implements OnInit, OnDestroy {
       this.CabSubscription = this.cabService.addCab(newCab).subscribe((res : Cab) =>{
         console.log(res)
         this.cabs.push(res);
+        this.dataSource.data = this.cabs;
       })
     })
   }
@@ -75,8 +80,6 @@ export class CabComponent implements OnInit, OnDestroy {
       if(res){
         this.cabs = res;
         this.dataSource.data = this.cabs;
-        this.dataSource.sort = this.sort
-        this.dataSource.paginator = this.paginator
       }
     })
   }

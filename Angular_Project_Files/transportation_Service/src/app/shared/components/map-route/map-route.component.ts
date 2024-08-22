@@ -13,8 +13,8 @@ import { HttpClient } from '@angular/common/http';
 export class MapRouteComponent implements OnInit {
   map!: mapboxgl.Map;
   directionsService: string =
-    'https://api.mapbox.com/directions/v5/mapbox/driving/';
-  style = 'mapbox://styles/mapbox/streets-v11';
+    environment.mapbox.directionService;
+  style = environment.mapbox.style;
   mapboxToken: string = environment.mapbox.accessToken;
 
   @Input() sourceLat: number = 22.3511148;
@@ -27,6 +27,8 @@ export class MapRouteComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeMap();
+
+    // console.log(this.sourceLat+" " + this.sourceLng +" " + this.destLat + " " + this.destLng)
   }
 
   initializeMap(): void {

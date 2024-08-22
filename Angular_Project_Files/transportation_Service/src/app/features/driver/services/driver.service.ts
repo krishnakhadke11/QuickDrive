@@ -4,6 +4,7 @@ import { Ride } from '../../../core/models/Ride';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Cab } from '../../../core/models/Cab';
+import { EarningResponse } from '../../../core/models/EarningResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class DriverService {
 
   endRide(rideId : number) :Observable<string>{
     return this.http.get<string>(this.url + `driver/end/ride/${rideId}`,{responseType : 'text' as 'json'})
+  }
+
+  getMonthlyEarnings() : Observable<EarningResponse> {
+    return this.http.get<EarningResponse>(this.url + 'driver/payment/earnings');
   }
 }

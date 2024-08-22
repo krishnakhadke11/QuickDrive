@@ -1,1 +1,1 @@
-export type DriverStatus ='GO ONLINE'| 'AVAILABLE' | 'HIRED';
+export type DriverStatus ='OFFLINE'| 'AVAILABLE' | 'HIRED';

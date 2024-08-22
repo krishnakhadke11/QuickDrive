@@ -21,6 +21,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
   private intervalVar: any;
   private timeoutVar: any;
   private timeEnded : boolean = false;
+  private isAccepted : boolean = false;
   private rideRequestSubscription: Subscription | null = null;
   private deleteRideReqSubscription: Subscription | null = null;
 
@@ -62,7 +63,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
             });
             this.dialogAfterCloseAction()
             this.stopPolling()
-            this.timeEnded = true;
+            this.isAccepted  = true;
             console.log('Ride Accepted');
           }
         });
@@ -74,9 +75,9 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
       });
       this.isSearching = false;
       this.dialogAfterCloseAction()
+      this.isAccepted = false;
       this.stopPolling();
-      this.timeEnded = true;
-    }, 30000);
+    }, 10000);
   }
 
   dialogAfterCloseAction(): void {
@@ -106,8 +107,8 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopPolling();
-    if(!this.timeEnded){
-      console.log("hello")
+    console.log("hello")
+    if(!this.isAccepted){
       this.deleteRideReq()
     } 
 

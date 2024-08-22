@@ -6,35 +6,44 @@ import { RideRequestComponent } from "./components/riderequest/riderequest.compo
 import { EndRideComponent } from "./components/end-ride/end-ride.component";
 import { ProfileComponent } from "../../shared/components/profile/profile.component";
 import { TestComponent } from "../../shared/components/test/test.component";
+import { canDeactivateGuard, DriverCanActivateGuard } from "../../core/guards/auth.guard";
 
 
 export const DRIVER_ROUTES : Route[] = [
     {
         path : '',
-        component : HomeComponent
+        component : HomeComponent,
+        canActivate : [DriverCanActivateGuard]
     },
     {
         path : 'cab',
-        component : CabComponent
+        component : CabComponent,
+        canActivate : [DriverCanActivateGuard]
     },
     {
         path : 'operation',
-        component : OperationalComponent
+        component : OperationalComponent,
+        canActivate : [DriverCanActivateGuard]
     },
     {
         path : 'riderequest',
-        component : RideRequestComponent
+        component : RideRequestComponent,
+        canActivate : [DriverCanActivateGuard]
     },
     {
         path : 'end-ride',
-        component : EndRideComponent
+        component : EndRideComponent,
+        canActivate : [DriverCanActivateGuard]
     },
     {
         path : 'profile',
-        component : ProfileComponent
+        component : ProfileComponent,
+        canActivate : [DriverCanActivateGuard],
+        canDeactivate : [canDeactivateGuard]
     },
     {
         path : 'test',
-        component : TestComponent
+        component : TestComponent,
+        canActivate : [DriverCanActivateGuard]
     },
 ]

@@ -4,7 +4,7 @@ export class User{
     constructor(
         private _token:string,
         private _refreshToken:string,
-        private _role: Role
+        private _role: string
     ){}
     get token(){
         return this._token;
@@ -25,7 +25,7 @@ export class User{
         return this._role
     }
 
-    set role(role : Role){
+    set role(role : string){
         this._role = role;
     }
 }

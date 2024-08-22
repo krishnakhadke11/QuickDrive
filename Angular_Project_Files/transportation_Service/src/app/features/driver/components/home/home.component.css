@@ -25,30 +25,20 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: flex-start;
     padding: 20px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 .left-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
-    flex: 1;
-    max-width: 48%;
-    height: 100%;
-}
-
-.right-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    max-width: 48%;
+    /* flex: 1; */
+    width: 30%;
     height: 100%;
 }
 
@@ -78,22 +68,48 @@
     align-items: center;
 }
 
+.cab-list{
+    overflow-y: auto;
+    height: 70%;
+}
+
+.cab-list::-webkit-scrollbar {
+    
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  .cab-list::-webkit-scrollbar-thumb {
+    background-color: #8dabca;/* Scrollbar color */
+    border-radius: 10px;
+  }
+  
+  .cab-list::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Track color */
+  }
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* flex: 1; */
+    width: 70%;
+    height: 100%;
+}
+
+
 .table-container {
-    width: 100%;
+    width: 83.5%;
     height: auto;
     overflow: auto;
 }
 
-mat-card {
-    margin-bottom: 20px;
-}
-
-mat-card-title {
+.ride-title {
     font-size: 1.5rem;
     color: #3f51b5;
 }
 
-mat-table {
+.mat-table {
     margin-top: 10px;
     border-spacing: 0;
     border-collapse: collapse;
@@ -135,20 +151,70 @@ mat-icon {
 }
 
 
-
-/*      <div class="item-1">
-        <mat-card-title style="display: flex;align-items: center;">
-          <mat-icon color="primary">person</mat-icon>
-          <span>Driver Status</span>
-        </mat-card-title>
-        <mat-card-content style="margin-left: 2.5%;">
-          <p>
-            <strong>Status:</strong>
-            <span style="color: green;margin-left: 1%;">{{status}}</span>
-          </p>
-        </mat-card-content>
-      </div>
-
-      <div class="item-2">
-        <button mat-raised-button>Go Online</button>
-      </div> */
+  .earning-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+  }
+  
+  .earning-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .earning-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .date-header {
+    font-size: 1rem;
+    color: #6e6e6e;
+  }
+  
+  .progress-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .progress-bar-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .month-progress-bar {
+    color: #03346E;
+  }
+  
+  .cash-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #03346E;
+  }
+  
+  .total-earnings {
+    display: flex;
+    align-items: center;
+  }
+  
+  .earnings-amount {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #021526;
+  }     

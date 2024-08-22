@@ -9,12 +9,15 @@ import { DriverOpsService } from '../../services/driver-ops.service';
 import { Ride } from '../../../../core/models/Ride';
 import { DriverService } from '../../services/driver.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { MapRouteComponent } from '../../../../shared/components/map-route/map-route.component';
+import { LatLng } from '../../../../core/models/LatLng';
+import { MapboxService } from '../../../../core/services/mapbox.service';
 
 
 @Component({
   selector: 'app-riderequest',
   standalone: true,
-  imports: [RidereqCardComponent,CommonModule],
+  imports: [RidereqCardComponent,CommonModule,MapRouteComponent],
   templateUrl: './riderequest.component.html',
   styleUrl: './riderequest.component.css'
 })
@@ -23,12 +26,13 @@ export class RideRequestComponent implements OnInit,OnDestroy{
   driverOps : DriverOpsRes | null = null;
   isHired : boolean = false; 
   hiredRide : Ride | null = null;
+  latLng : LatLng | null = null;
   message : string = 'No Ride Requests Found'
   rideReqSubscription : Subscription | null = null;
   driverOpsSubscription : Subscription | null = null;
   latestRideSubscription : Subscription | null = null;
 
-  constructor(private rideReqService : RideRequestService,private driverOpsService : DriverOpsService,private driverService : DriverService,private notif : NotificationService){
+  constructor(private rideReqService : RideRequestService,private driverOpsService : DriverOpsService,private driverService : DriverService,private notif : NotificationService,private mapboxService : MapboxService){
 
   }
 
@@ -58,8 +62,16 @@ export class RideRequestComponent implements OnInit,OnDestroy{
         console.log(this.isHired)
         console.log(res)
         this.hiredRide = res;
+        this.setCoordinates();
+        console.log(this.latLng)
       }
     })
+  }
+
+  setCoordinates() {
+    if(this.hiredRide){
+      this.latLng = this.mapboxService.latLngExtraction(this.hiredRide.pickupLocation,this.hiredRide.dropLocation);
+    }
   }
 
   getAllRideReq(){
@@ -72,6 +84,7 @@ export class RideRequestComponent implements OnInit,OnDestroy{
   driverStatusChange(data : {ride : Ride,isHired : boolean}){
     this.isHired = data.isHired;
     this.hiredRide = data.ride;
+    this.setCoordinates();
   }
 
   ngOnDestroy(): void {

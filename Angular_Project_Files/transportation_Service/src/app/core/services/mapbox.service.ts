@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { catchError, map, Observable, of } from 'rxjs';
+import { LatLng } from '../models/LatLng';
 
 export interface MapboxOutput {
   attribution: string;
@@ -57,5 +58,26 @@ export class MapboxService {
     }else{
       return of()
     }
+  }
+
+  latLngExtraction(pickupLocation : string,dropLocation : string) : LatLng{
+    const [srcLatStr, srcLngStr] = pickupLocation.split(',');
+    const [destLatStr, destLngStr] = dropLocation.split(',');
+
+    const srcLat = parseFloat(srcLatStr);
+    const srcLng = parseFloat(srcLngStr);
+
+    const destLat = parseFloat(destLatStr);
+    const destLng = parseFloat(destLngStr);
+
+    const sendLocation : LatLng =  {
+      srcLat : srcLat,
+      srcLng : srcLng,
+      destLat : destLat,
+      destLng : destLng
+    }
+
+    return sendLocation;
+
   }
 }

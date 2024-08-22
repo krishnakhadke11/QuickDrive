@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CabService } from '../../services/cab.service';
 import { Cab } from '../../../../core/models/Cab';
 import {  MatFormFieldModule } from '@angular/material/form-field';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';

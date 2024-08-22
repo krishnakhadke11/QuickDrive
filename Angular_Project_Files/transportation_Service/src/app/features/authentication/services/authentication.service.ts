@@ -6,6 +6,8 @@ import { NotificationService } from '../../../core/services/notification.service
 import { AuthResponse } from '../../../core/models/AuthResponse';
 import { User } from '../../../core/models/User';
 import { Role } from '../../../core/models/Role';
+import * as CryptoJS from 'crypto-js';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable({
@@ -59,8 +61,10 @@ export class AuthenticationService {
         res.role
       ) 
 
+      
+
       this.notif.showSuccess("Login Successfull")
-      localStorage.setItem('user',JSON.stringify(user))
+      localStorage.setItem('user',JSON.stringify(new User(res.token,res.refreshToken,this.encryptData(res.role))))
       this.user.next(user);
     }))
   }
@@ -75,18 +79,26 @@ export class AuthenticationService {
     const localUser = localStorage.getItem('user')
     const user = localUser ? JSON.parse(localUser) : null
     if(user){
-      const newUserObj = new User(user._token,user._refreshToken,user._role);
+      const newUserObj = new User(user._token,user._refreshToken,this.decryptData(user._role));
       this.user.next(newUserObj);
-      if(newUserObj.role === 'CUSTOMER'){
-        this.router.navigate(['/customer'])
-      }else if(newUserObj.role === 'DRIVER'){
-        // this.router.navigate(['/driver'])
-      }else{
-        this.router.navigate(['/login'])
-      }
+      // if(newUserObj.role === 'CUSTOMER'){
+      //   this.router.navigate(['/customer'])
+      // }else if(newUserObj.role === 'DRIVER'){
+      //   // this.router.navigate(['/driver'])
+      // }else{
+      //   this.router.navigate(['/login'])
+      // }
       return;
     }
-    this.router.navigate(['/login'])
+    // this.router.navigate(['/login'])
   }
 
+  encryptData(data: string) : string {
+    return CryptoJS.AES.encrypt(data, environment.secretKey).toString();
+  }
+
+  decryptData(cipherText: string) : string {
+    const bytes = CryptoJS.AES.decrypt(cipherText, environment.secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  }
 }

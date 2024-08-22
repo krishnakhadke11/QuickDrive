@@ -11,6 +11,8 @@ import { NotificationService } from '../../../core/services/notification.service
 import { CommonModule } from '@angular/common';
 import { Driver } from '../../../core/models/Driver';
 import { MatIconModule } from '@angular/material/icon';
+import { CanComponentDeactivate } from '../../../core/guards/auth.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-update',
@@ -19,9 +21,10 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './profile-update.component.html',
   styleUrl: './profile-update.component.css'
 })
-export class ProfileUpdateComponent implements OnInit {
+export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
   profileUpdate : FormGroup;
-
+  isUpdated : boolean = false;
+  initialFormValues : any;
   @Input() userCustomer : Customer | null = null;
   @Input() userDriver : Driver | null = null;
 
@@ -40,7 +43,8 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.checkProfile()
+    this.checkProfile();
+    this.initialFormValues = this.profileUpdate.getRawValue();
   }
 
   checkProfile(){
@@ -69,7 +73,9 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   toggleEdit(){
-    this.isEditEmitter.emit(false)
+    if(this.canDeactivate()){
+      this.isEditEmitter.emit(false)
+    }
   }
   onUpdate(){
     if(this.userCustomer){  
@@ -112,9 +118,39 @@ export class ProfileUpdateComponent implements OnInit {
       this.userService.updateDriver(updateDriver).subscribe((res) =>{
         if(res){
           this.notif.showSuccess("User Details are updated successfully")
-          this.router.navigate(['/customer'])
+          this.router.navigate(['/driver'])
         }
       });
+    }
+    this.isUpdated = true;
+  }
+
+  hasUserChangedData() : boolean{
+    const currVal = this.profileUpdate.getRawValue();
+    return JSON.stringify(this.initialFormValues) !== JSON.stringify(currVal);
+  }
+
+  canDeactivate() : boolean {
+    if(this.userCustomer){
+      if(
+        // (this.profileUpdate.value.firstName || this.profileUpdate.value.lastName || this.profileUpdate.value.email ||
+        // this.profileUpdate.value.phoneNumber || this.profileUpdate.value.address )
+         (!this.isUpdated) && this.hasUserChangedData()
+      ){
+        return confirm('You have unsaved changes. Do you want to navigate away?');
+      }else{
+        return true;
+      }
+    }else{
+      if(
+        // (this.profileUpdate.value.firstName || this.profileUpdate.value.lastName || this.profileUpdate.value.email ||
+        // this.profileUpdate.value.phoneNumber || this.profileUpdate.value.address || this.profileUpdate.value.driversLicense) && 
+        (!this.isUpdated) && this.hasUserChangedData()
+      ){
+        return confirm('You have unsaved changes. Do you want to navigate away?');
+      }else{
+        return true;
+      }
     }
   }
 }

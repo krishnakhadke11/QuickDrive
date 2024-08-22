@@ -3,13 +3,13 @@
         <p style="border-bottom: 1px solid rgba(0, 0, 0, 0.459);">Please Confirm : Has the customer completed the payment of the ride?</p>
         <br>
         <h6>Ride Details  </h6>
-        <p><strong>Pickup : </strong> Kharghar</p>
-        <p><strong>Drop : </strong> Senapati Bapat Marg</p>
-        <p><strong>Fare : </strong> {{ 500 | currency : 'INR'}}</p>
-        <p><strong>Distance : </strong> 500Km</p>
-        <p><strong>Duration : </strong> 1hr 20 min</p>
-        <p><strong>Customer Fullname : </strong> 1hr 20 min</p>
-        <p><strong>Customer Email : </strong> 1hr 20 min</p>
+        <p><strong>Pickup : </strong> {{endRideData?.pickupName}}</p>
+        <p><strong>Drop : </strong> {{endRideData?.dropName}} </p>
+        <p><strong>Fare : </strong> {{ endRideData?.fare| currency : 'INR'}}</p>
+        <p><strong>Distance : </strong> {{endRideData?.distance}} </p>
+        <p><strong>Duration : </strong> {{endRideData?.duration}} </p>
+        <p><strong>Customer Fullname : </strong> {{endRideData?.customer?.fullname}} </p>
+        <p><strong>Customer Email : </strong> {{endRideData?.customer?.email}} </p>
         <div class="action-btns">
             <button mat-raised-button color="primary" (click)="endRide()"> Yes</button>
         </div>

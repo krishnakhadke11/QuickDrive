@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit{
   userCustomer: Customer | null = null; 
   userDriver: Driver | null = null;
   isEdit : boolean = false;
+  @ViewChild(ProfileUpdateComponent) profileUpdateComponent! : ProfileUpdateComponent;
   constructor(private userService : UserService){
     
   }
@@ -42,6 +43,14 @@ export class ProfileComponent implements OnInit{
 
   onEdit() {
     this.isEdit = !this.isEdit;
+  }
+  
+  canDeactivate() : boolean{
+    if(this.isEdit){
+      return this.profileUpdateComponent.canDeactivate();
+    }else{
+      return true;
+    }
   }
 
   backBtn(isEdit : boolean){
