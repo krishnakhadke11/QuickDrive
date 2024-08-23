@@ -28,6 +28,6 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [disabled]="addCabForm.invalid" [mat-dialog-close]="addCabForm" cdkFocusInitial>Add</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [disabled]="addCabForm.invalid" [mat-dialog-close]="addCabForm" >Add</button>
 </mat-dialog-actions>

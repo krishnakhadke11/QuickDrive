@@ -21,6 +21,6 @@
     </ul>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary" class="book-button" (click)="onBooking()">Book</button>
+    <button [disabled]="isProcessing" mat-button color="primary" class="book-button" (click)="onBooking()">{{isProcessing ? 'Booking...':'Book'}}</button>
   </mat-card-actions>
 </mat-card>

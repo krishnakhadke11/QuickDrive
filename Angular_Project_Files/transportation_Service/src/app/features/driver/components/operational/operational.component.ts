@@ -70,8 +70,6 @@ export class OperationalComponent implements OnInit{
   }
 
   onSubmit(){
-    // console.log(this.addDriverOperationalForm.value)
-    // console.log(this.cabId.value)
     const selectedCabId = this.cabId.value;
     if(selectedCabId){
       
@@ -83,7 +81,7 @@ export class OperationalComponent implements OnInit{
           id : selectedCabId[0]
         }
       }
-      console.log(newDriverOps)
+      
       this.addDriverOpsSubscription = this.driverOpsService.addDriverOps(newDriverOps).subscribe((res : DriverOpsRes) =>{
         this.notif.showSuccess("Your Operational Now")
         this.isDriverOps = res

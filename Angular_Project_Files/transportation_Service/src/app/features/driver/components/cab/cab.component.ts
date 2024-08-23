@@ -41,7 +41,6 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
   }
   
   ngAfterViewInit(): void {
-    console.log(this.sort)
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator;
   }
@@ -51,6 +50,7 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if(result instanceof FormGroup){
         this.addCabAction(result);
+        result.reset()
       }
     });
   }
@@ -66,9 +66,7 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
           id : res?.user.id
         }
       };
-      console.log(newCab)
       this.CabSubscription = this.cabService.addCab(newCab).subscribe((res : Cab) =>{
-        console.log(res)
         this.cabs.push(res);
         this.dataSource.data = this.cabs;
       })

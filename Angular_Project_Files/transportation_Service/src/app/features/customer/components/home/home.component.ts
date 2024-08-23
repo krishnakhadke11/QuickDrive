@@ -37,14 +37,11 @@ export class HomeComponent implements OnDestroy{
   }
 
   onCheckExpense(){
-    console.log(this.pickupCoordinates)
-    console.log(this.dropCoordinates)
     if(this.pickupCoordinates != null && this.dropCoordinates != null){
       const pickupCoordinatesStr = this.pickupCoordinates[1] + "," + this.pickupCoordinates[0];
       const dropCoordinatesStr = this.dropCoordinates[1] + "," + this.dropCoordinates[0];
 
       this.fareSubscription = this.fareService.checkExpense(pickupCoordinatesStr,dropCoordinatesStr).subscribe((res : fare)=>{
-        console.log(res);
         if(res){
           this.router.navigate(['/customer/fare'],{state : {fareData : res,locationNames : {pickupName : this.placeNamePickup,dropName : this.placeNameDrop}}})
         }

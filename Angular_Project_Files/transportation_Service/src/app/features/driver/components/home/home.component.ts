@@ -135,7 +135,6 @@ export class HomeComponent implements OnInit {
 
   driverStatus() {
     this.driverOpsService.checkIfOperational().subscribe((res) => {
-      // console.log(res)
       if (res.error) {
         if (res.error.status === 404) {
           this.notif.showError('Driver is not operational');
@@ -158,10 +157,7 @@ export class HomeComponent implements OnInit {
 
   getLatestRideIfHired(){
     this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
-       console.log(res);
        if(this.isHired){
-         console.log(this.isHired)
-         console.log(res)
          this.hiredRide = res;
         }
       })

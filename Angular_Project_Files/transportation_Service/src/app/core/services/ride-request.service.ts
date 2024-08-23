@@ -29,7 +29,8 @@ export class RideRequestService implements OnDestroy{
   getAllRideRequestsAsPerDriverOps() : Observable<RideRequest[]>{
     return this.http.get<RideRequest[]>(this.url + 'riderequest/driver').pipe(catchError((err) => {
       if(err instanceof HttpErrorResponse && err.status === 404){
-        return throwError(() => "Driver is not operational"); 
+        this.notif.showError("Driver is not operational");
+        return EMPTY;
       }else{
         return throwError(() => err)
       }

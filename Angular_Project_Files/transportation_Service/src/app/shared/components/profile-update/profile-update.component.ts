@@ -49,7 +49,6 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
 
   checkProfile(){
     if (this.userCustomer && this.userDriver === null) {
-      console.log(this.userCustomer)
       this.profileUpdate.patchValue({
         firstName: this.userCustomer.user.firstName,
         lastName: this.userCustomer.user.lastName,
@@ -79,7 +78,6 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
   }
   onUpdate(){
     if(this.userCustomer){  
-        console.log(this.profileUpdate.value)
         const updateCustomer : Customer = {
           id : this.userCustomer.id,
           user : {
@@ -92,7 +90,7 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
             role: this.userCustomer.user.role,
           }
         }
-      console.log("updateCustomer : ",updateCustomer)
+    
       this.userService.updateCustomer(updateCustomer).subscribe((res) =>{
         if(res){
           this.notif.showSuccess("User Details are updated successfully")
@@ -114,7 +112,6 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
         }
       }
 
-      console.log("updateCustomer : ",updateDriver)
       this.userService.updateDriver(updateDriver).subscribe((res) =>{
         if(res){
           this.notif.showSuccess("User Details are updated successfully")

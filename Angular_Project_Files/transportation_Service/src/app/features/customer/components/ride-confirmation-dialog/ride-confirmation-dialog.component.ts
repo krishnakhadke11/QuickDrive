@@ -21,6 +21,5 @@ export class RideConfirmationDialogComponent implements OnInit{
     this.rideRequestData = this.data.rideRequestData;
   }
   ngOnInit(): void {
-    console.log(this.rideRequestData);
   }
 }

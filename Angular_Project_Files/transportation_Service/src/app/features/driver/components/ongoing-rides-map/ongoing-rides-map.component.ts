@@ -1,43 +1,39 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RideRequest } from '../../../../core/models/RideRequest';
-import { RideRequestService } from '../../../../core/services/ride-request.service';
-import { Subscription,  } from 'rxjs';
-import { RidereqCardComponent } from '../ridereq-card/ridereq-card.component';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
-import { DriverOpsService } from '../../services/driver-ops.service';
 import { Ride } from '../../../../core/models/Ride';
+import { LatLng } from '../../../../core/models/LatLng';
+import { Subscription } from 'rxjs';
+import { DriverOpsService } from '../../services/driver-ops.service';
+import { MapboxService } from '../../../../core/services/mapbox.service';
 import { DriverService } from '../../services/driver.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { RidereqCardComponent } from '../ridereq-card/ridereq-card.component';
+import { CommonModule } from '@angular/common';
 import { MapRouteComponent } from '../../../../shared/components/map-route/map-route.component';
-import { LatLng } from '../../../../core/models/LatLng';
-import { MapboxService } from '../../../../core/services/mapbox.service';
-
 
 @Component({
-  selector: 'app-riderequest',
+  selector: 'app-ongoing-rides-map',
   standalone: true,
   imports: [RidereqCardComponent,CommonModule,MapRouteComponent],
-  templateUrl: './riderequest.component.html',
-  styleUrl: './riderequest.component.css'
+  templateUrl: './ongoing-rides-map.component.html',
+  styleUrl: './ongoing-rides-map.component.css'
 })
-export class RideRequestComponent implements OnInit,OnDestroy{
-  rideRequests : RideRequest[] = [];  
+export class OngoingRidesMapComponent {
   driverOps : DriverOpsRes | null = null;
   isHired : boolean = false; 
   hiredRide : Ride | null = null;
-  message : string = 'No Ride Requests Found'
-  rideReqSubscription : Subscription | null = null;
+  latLng : LatLng | null = null;
+
   driverOpsSubscription : Subscription | null = null;
   latestRideSubscription : Subscription | null = null;
 
-  constructor(private rideReqService : RideRequestService,private driverOpsService : DriverOpsService,private driverService : DriverService,private notif : NotificationService,private mapboxService : MapboxService){
+
+  constructor(private driverOpsService : DriverOpsService,private driverService : DriverService,private notif : NotificationService,private mapboxService : MapboxService){
 
   }
 
   ngOnInit(): void {
     this.checkIfOps();
-    this.getAllRideReq(); 
   }
 
   checkIfOps(){
@@ -58,25 +54,21 @@ export class RideRequestComponent implements OnInit,OnDestroy{
    this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
       if(this.isHired){
         this.hiredRide = res;
+        this.setCoordinates();
       }
     })
   }
 
-  getAllRideReq(){
-    this.rideReqSubscription = this.rideReqService.getAllRideRequestsAsPerDriverOps().subscribe({next :(res : RideRequest[])=>{
-      this.rideRequests = res;
-    }})
+  setCoordinates() {
+    if(this.hiredRide){
+      this.latLng = this.mapboxService.latLngExtraction(this.hiredRide.pickupLocation,this.hiredRide.dropLocation);
+    }
   }
 
   driverStatusChange(data : {ride : Ride,isHired : boolean}){
     this.isHired = data.isHired;
     this.hiredRide = data.ride;
-  }
-
-  ngOnDestroy(): void {
-      this.rideReqSubscription?.unsubscribe();
-      this.driverOpsSubscription?.unsubscribe();
-      this.latestRideSubscription?.unsubscribe();
+    this.setCoordinates();
   }
 
 }

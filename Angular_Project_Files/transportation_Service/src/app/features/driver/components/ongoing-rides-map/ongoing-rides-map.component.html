@@ -1,0 +1,26 @@
+<div class="container1" *ngIf="isHired && hiredRide">
+  <div class="hired-container">
+    <app-ridereq-card
+      [rideId]="hiredRide.id"
+      [pickup]="hiredRide.pickupName"
+      [drop]="hiredRide.dropName"
+      [fare]="hiredRide.fare!"
+      [distance]="hiredRide.distance!"
+      [duration]="hiredRide.duration!"
+      [customer]="hiredRide.customer!"
+    >
+    </app-ridereq-card>
+  </div>
+  <div class="map-container">
+    <app-map-route
+      [sourceLat]="latLng?.srcLat!"
+      [sourceLng]="latLng?.srcLng!"
+      [destLat]="latLng?.destLat!"
+      [destLng]="latLng?.destLng!"
+    ></app-map-route>
+  </div>
+</div>
+
+<div class="container2" *ngIf="!isHired && !hiredRide">
+  <h6 style="align-self: center; justify-self: center">No On Going Rides</h6>
+</div>

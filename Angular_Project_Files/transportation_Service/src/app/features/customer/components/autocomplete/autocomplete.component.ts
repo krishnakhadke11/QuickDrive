@@ -30,7 +30,7 @@ export class AutocompleteComponent {
         map(value => this._filter(value || ''))
       );
       // .pipe(debounce(()=>timer(1000)))
-      this.myControl.valueChanges.subscribe(searchTerm =>{
+      this.myControl.valueChanges.pipe(debounce(()=>timer(300))).subscribe(searchTerm =>{
         // console.log(searchTerm)
         if (searchTerm && searchTerm.length > 0) {        
           this.mapboxService

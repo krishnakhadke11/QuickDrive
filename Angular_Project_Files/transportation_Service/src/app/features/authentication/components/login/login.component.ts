@@ -36,7 +36,6 @@ export class LoginComponent implements OnDestroy{
     const data = this.loginForm.value;
     const role : Role= this.isCustomer ? 'CUSTOMER' : 'DRIVER'
     this.loginSubscription =  this.authService.login(data,role).subscribe((res) =>{
-      console.log(res);
       if(res.role === 'CUSTOMER'){
         this.router.navigate(['/customer'])
       }

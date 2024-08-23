@@ -39,7 +39,7 @@
       <mat-card-content >
         <mat-list role="list">
           <mat-card-title style="text-align: center;">Driver's Cab</mat-card-title>
-          <mat-list-item role="listitem" *ngFor="let cab of driversCab">
+          <mat-list-item  role="listitem" *ngFor="let cab of driversCab">
             <mat-icon matListIcon>directions_car</mat-icon>
             <strong>Model: </strong> {{ cab.model }} <strong>Reg No.: </strong>
             {{ cab.registerNo }}
@@ -66,7 +66,7 @@
             diameter="100"
             class="month-progress-bar">
           </mat-progress-spinner>
-          <span class="cash-label">{{earnings?.cash| currency : 'INR'}}<br/>Cash</span>
+          <span class="cash-label">{{earnings?.cash ? (earnings?.cash | currency : 'INR') : 0 | currency : 'INR'}}<br/>Cash</span>
         </div>
     
         <!-- Online Earnings -->
@@ -77,12 +77,12 @@
             diameter="100"
             class="month-progress-bar">
           </mat-progress-spinner>
-          <span class="cash-label">{{earnings?.online | currency : 'INR'}}<br/>Online</span>
+          <span class="cash-label">{{earnings?.online ? (earnings?.online | currency : 'INR') : 0 | currency : 'INR'}}<br/>Online</span>
         </div>
     
         <!-- Total Earnings -->
         <div class="total-earnings">
-          <p class="earnings-amount">Total: {{ earnings?.total| currency: 'INR' }}</p>
+          <p class="earnings-amount">Total: {{ earnings?.total ? (earnings?.total | currency: 'INR') : 0 | currency: 'INR' }}</p>
         </div>
       </div>
     </div>

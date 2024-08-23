@@ -38,6 +38,7 @@ export class MapRouteComponent implements OnInit {
       style: this.style,
       zoom: 13,
       center: [this.destLng, this.destLat],
+      
     });
 
     this.map.on('style.load', () => {

@@ -7,6 +7,7 @@ import { EndRideComponent } from "./components/end-ride/end-ride.component";
 import { ProfileComponent } from "../../shared/components/profile/profile.component";
 import { TestComponent } from "../../shared/components/test/test.component";
 import { canDeactivateGuard, DriverCanActivateGuard } from "../../core/guards/auth.guard";
+import { OngoingRidesMapComponent } from "./components/ongoing-rides-map/ongoing-rides-map.component";
 
 
 export const DRIVER_ROUTES : Route[] = [
@@ -44,6 +45,11 @@ export const DRIVER_ROUTES : Route[] = [
     {
         path : 'test',
         component : TestComponent,
+        canActivate : [DriverCanActivateGuard]
+    },
+    {
+        path : 'rides/map',
+        component : OngoingRidesMapComponent,
         canActivate : [DriverCanActivateGuard]
     },
 ]

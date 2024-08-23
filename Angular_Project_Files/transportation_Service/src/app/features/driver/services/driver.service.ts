@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { Ride } from '../../../core/models/Ride';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Cab } from '../../../core/models/Cab';
 import { EarningResponse } from '../../../core/models/EarningResponse';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
   url = environment.BASE_URL;
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient,private notif : NotificationService) { }
 
   getLatestRideOfDriver() : Observable<Ride>{
     return this.http.get<Ride>(this.url + 'driver/ride/latest')
@@ -30,6 +31,13 @@ export class DriverService {
   }
 
   getMonthlyEarnings() : Observable<EarningResponse> {
-    return this.http.get<EarningResponse>(this.url + 'driver/payment/earnings');
+    return this.http.get<EarningResponse>(this.url + 'driver/payment/earnings').pipe(catchError((error : HttpErrorResponse)=>{
+      if(error.status === 404){
+        this.notif.showSuccess("No Payments Currently")
+        return EMPTY;
+      }else{
+        return throwError(() => error);
+      }
+    }));
   }
 }

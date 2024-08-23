@@ -26,24 +26,10 @@ export class RideCardComponent implements OnInit{
 
   constructor(private mapboxService : MapboxService) { }
   ngOnInit(): void {
-    // this.mapBoxSubscription1 = this.mapboxService.searchAddress(this.ride?.pickupLocation).subscribe((res : Address) =>{
-    //   // console.log("pickup res : ",res)
-    //   if(res){
-    //     this.pickupLocation = res.name;
-    //   }
-    // })
-    // console.log("Drop location : ",this.ride?.dropLocation)
-    // this.mapBoxSubscription2 = this.mapboxService.searchAddress(this.ride?.dropLocation).subscribe((res : Address) =>{
-    //   if(res){
-    //     this.dropLocation = res.name;
-    //   }
-    // })
+    
   }
 
   onCardClick(){
-    // const rideCopy = {...this.ride};
-    // rideCopy.pickupLocation = this.pickupLocation;
-    // rideCopy.dropLocation = this.dropLocation;
     
     this.dialogRef = this.dialog.open(RideDetailsDialogComponent, {
       data: { rideData: this.ride },

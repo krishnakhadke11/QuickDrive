@@ -25,10 +25,8 @@ export class UserService implements  OnDestroy{
 
   getUserDetails(){
     this.authUserSubscription = this.authService.user.subscribe((res) =>{
-      console.log(res)
       if(res?.role === "CUSTOMER"){
         this.customerSubscription =  this.getCustomerDetails().subscribe((customer) =>{
-          console.log(customer)
            this.userCustomer.next(customer);
          })
        }else if(res?.role === "DRIVER"){

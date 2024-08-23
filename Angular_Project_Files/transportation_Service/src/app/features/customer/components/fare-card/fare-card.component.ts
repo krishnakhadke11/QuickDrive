@@ -39,6 +39,7 @@ export class FareCardComponent {
   @Input() pickupName : string | undefined;
   @Input() dropName : string | undefined;
 
+  isProcessing : boolean = false;
   // @Input() paymentType!: string | null;
 
   paymentMode: Payment[] = [
@@ -53,6 +54,7 @@ export class FareCardComponent {
   }
 
   onBooking(){
+    this.isProcessing = true;
     const rideRequest : RideRequest  = {
         pickupLocation : this.pickupLocation,
         pickupName : this.pickupName,
@@ -66,7 +68,6 @@ export class FareCardComponent {
     }
    
     this.rideReqService.createRideRequest(rideRequest).subscribe((res)=>{
-      console.log(res);
       this.router.navigate(['/customer/searchingcab'],{state : {rideRequest : res}})
     })
     

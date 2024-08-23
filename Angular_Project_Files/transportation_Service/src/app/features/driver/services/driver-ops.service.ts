@@ -22,7 +22,7 @@ export class DriverOpsService {
     data?: DriverOpsRes;
     error?: { status: number; message: string };
   }> {
-    return this.http.get<DriverOpsRes>(this.url + 'driveroperation/check').pipe(
+    return this.http.get<DriverOpsRes>(this.url + 'driver/driveroperation').pipe(
       map((data: DriverOpsRes) => ({ data })),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {

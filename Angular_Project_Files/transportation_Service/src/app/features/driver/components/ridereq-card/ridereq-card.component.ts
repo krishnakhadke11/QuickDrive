@@ -48,10 +48,8 @@ export class RidereqCardComponent {
   ) {}
 
   acceptRequest() {
-    console.log('Request accepted');
     if (this.reqId) {
       this.acceptRideSubs =this.rideReqService.acceptRideRequest(this.reqId).subscribe((res: Ride) => {
-          console.log(res);
           this.bookedRide = res;
           this.isHired = true;
           this.isHiredChange.emit({

@@ -45,7 +45,6 @@ export class MapboxService {
       const url = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lngStr}&latitude=${latStr}&types=address&access_token=${environment.mapbox.accessToken}`;
   
       return this.http.get(url).pipe(map((res : any) =>{
-        console.log(res)
 
         if(res.features && res.features.length > 0){
           return res.features[0].properties.context.address;

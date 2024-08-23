@@ -7,11 +7,11 @@ import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService {
+export class CustomerService {
 
   constructor(private http : HttpClient) { }
 
   getAllPayments() : Observable<Payment[]> {
-    return this.http.get<Payment[]>(environment.BASE_URL + 'payment/customer');
+    return this.http.get<Payment[]>(environment.BASE_URL + 'customer/payments');
   }
 }

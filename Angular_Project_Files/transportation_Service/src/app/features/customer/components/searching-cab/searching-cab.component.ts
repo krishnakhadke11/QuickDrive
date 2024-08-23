@@ -40,7 +40,6 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Received From Fare-Card
     this.rideReq = history.state.rideRequest;
-    console.log('ride req :', this.rideReq);
     if (this.rideReq) {
       this.startPolling();
     } else {
@@ -64,7 +63,6 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
             this.dialogAfterCloseAction()
             this.stopPolling()
             this.isAccepted  = true;
-            console.log('Ride Accepted');
           }
         });
     }, 5000);
@@ -77,7 +75,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
       this.dialogAfterCloseAction()
       this.isAccepted = false;
       this.stopPolling();
-    }, 10000);
+    }, 30000);
   }
 
   dialogAfterCloseAction(): void {
@@ -99,15 +97,13 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
   }
 
   deleteRideReq() {
-    console.log("del : ",this.rideReq?.id)
     this.rideReqService.deleteRideReq(this.rideReq?.id!).subscribe((res)=>{
-      console.log(res);
+
     })
   }
 
   ngOnDestroy(): void {
     this.stopPolling();
-    console.log("hello")
     if(!this.isAccepted){
       this.deleteRideReq()
     } 

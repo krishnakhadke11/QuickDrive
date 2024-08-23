@@ -5,8 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { PaymentService } from '../../services/payment.service';
 import { Payment } from '../../../../core/models/Payment';
+import { CustomerService } from '../../services/customer.service';
 
 export interface flattenPayment {
   id?:number;
@@ -38,14 +38,14 @@ export class PaymentsComponent implements OnInit  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<flattenPayment>();
 
-  constructor(private paymentService : PaymentService) { }
+  constructor(private customerService : CustomerService) { }
 
   ngOnInit(): void {
     this.loadPayments();
   }
 
   loadPayments(){
-    this.paymentService.getAllPayments().subscribe((data : Payment[]) =>{
+    this.customerService.getAllPayments().subscribe((data : Payment[]) =>{
       if(data){
 
         const flattenedData : flattenPayment[] = data.map(payment => ({
@@ -57,29 +57,11 @@ export class PaymentsComponent implements OnInit  {
           fare: payment.ride.fare
         }));
 
-        console.log(flattenedData)
-
         this.dataSource.data = flattenedData;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     })
   }
-
-  // loadPayments(){
-  //   this.paymentService.getAllPayments().subscribe((data: Payment[]) => {
-  //     if (data) {
-  //       // Flatten the data if needed
-  //       const flattenedData = data.map(payment => ({
-  //         ...payment,
-  //         pickup: payment.ride.pickupName,
-  //         dropoff: payment.ride.dropName,
-  //         fare: payment.ride.fare
-  //       }));
-  //       this.dataSource.data = flattenedData;
-  //       this.dataSource.sort = this.sort;
-  //       this.dataSource.paginator = this.paginator;
-  //     }
-  //   });
-  // }
+  
 }

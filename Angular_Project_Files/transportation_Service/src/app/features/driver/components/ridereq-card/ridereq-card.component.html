@@ -1,12 +1,12 @@
 <mat-card class="request-card">
   <mat-card-header style="align-self: flex-start; margin-top: 5px; margin-bottom: 10px">
-    <mat-card-title><u>Request Details</u></mat-card-title>
+    <mat-card-title><u>Request Details</u> : <span *ngIf="customer" style="color: green;">Live</span></mat-card-title>
   </mat-card-header>
   <mat-card-content style="align-self: flex-start">
     <div class="request-details">
       <p><strong>Pickup:</strong> {{ pickup }}</p>
       <p><strong>Drop:</strong> {{ drop }}</p>
-      <p><strong>Fare:</strong> {{ fare | currency }}</p>
+      <p><strong>Fare:</strong> {{ fare | currency : 'INR' }}</p>
       <p><strong>Distance:</strong> {{ distance }} km</p>
       <p><strong>Duration:</strong> {{ duration }} mins</p>
       <p *ngIf="customer">
