@@ -33,6 +33,7 @@ export class DriverOpsService {
             },
           });
         } else {
+          console.log("helo")
           return throwError(() => error);
         }
       })

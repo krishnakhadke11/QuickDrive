@@ -24,12 +24,12 @@
                         </ng-container>
 
                         <!-- Seating Capacity Column -->
-                        <ng-container matColumnDef="seatingCapacity">
+                        <ng-container style="text-align: center;"  matColumnDef="seatingCapacity">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header="seatingCapacity">
                                 Seating Capacity
                             </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.seatingCapacity }}
+                            <td mat-cell *matCellDef="let element" >
+                                {{ element.seatingCapacity === 'SEVEN_SEATER'? 7 : 5  }}
                             </td>
                         </ng-container>
 

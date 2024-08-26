@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CabService } from '../../services/cab.service';
 import { Cab } from '../../../../core/models/Cab';
 import {  MatFormFieldModule } from '@angular/material/form-field';
@@ -64,15 +64,11 @@ export class OperationalComponent implements OnInit{
     this.addDriverOperationalForm.patchValue({
       startTime: currentTime
     });
-  
-    // Disable the start time input
-    this.addDriverOperationalForm.get('startTime')?.disable();
   }
 
   onSubmit(){
     const selectedCabId = this.cabId.value;
     if(selectedCabId){
-      
       const newDriverOps : DriverOps = {
         startTime : this.addDriverOperationalForm.value.startTime!,
         endTime : this.addDriverOperationalForm.value.endTime!,

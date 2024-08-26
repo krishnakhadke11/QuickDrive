@@ -92,7 +92,8 @@ export class HomeComponent implements OnInit {
   getRides() {
     this.driverService.getAllRidesOfDriver().subscribe((data: Ride[]) => {
       if (data) {
-        const flattenedData: flattenRide[] = data.map((ride: Ride) => ({
+        const flattenedData: flattenRide[] = data.map((ride: Ride,index:number) => ({
+          srNo: index+1,
           id: ride.id,
           pickupName: ride.pickupName,
           dropName: ride.dropName,

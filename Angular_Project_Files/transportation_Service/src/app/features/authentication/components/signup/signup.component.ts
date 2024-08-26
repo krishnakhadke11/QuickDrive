@@ -41,7 +41,7 @@ export class SignupComponent implements OnDestroy {
     password: new FormControl('', [Validators.required, Validators.min(8)]),
     phoneNumber: new FormControl('', [Validators.required, Validators.min(10)]),
     address: new FormControl('', [Validators.required, Validators.min(15)]),
-    driversLicense: new FormControl('', [Validators.required]),
+    driversLicense: new FormControl('', [Validators.required,Validators.pattern('^([A-Z]{2}[0-9]{2} )((19|20)[0-9]{2})[0-9]{7}$')]),
   });
   customerSignupForm: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
