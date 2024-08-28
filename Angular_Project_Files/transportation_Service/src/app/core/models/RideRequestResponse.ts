@@ -7,16 +7,18 @@ import { SeatingCapacity } from "./SeatingCapacity";
 export interface RideRequestResponse {
     id: number;
     pickupLocation: string;
+    pickupName : string;
     dropLocation: string;
+    dropName:string;
     distance: string;
     duration: string;
     fare: number;
     paymentType: PaymentType;
     seatingCapacity: SeatingCapacity;
     bookingStatus: BookingStatus;
-    requestTime: string; // Assuming ISO 8601 date string
+    createdAt: string; 
     customer: Customer;
-    ride?: Ride; // Optional, since it can be null
+    ride?: Ride; 
 }
 
 

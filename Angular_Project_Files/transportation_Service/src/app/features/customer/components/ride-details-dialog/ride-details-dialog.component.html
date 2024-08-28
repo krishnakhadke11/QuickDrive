@@ -1,5 +1,11 @@
-<p mat-dialog-title><U>Ride Details</U></p>
-<mat-dialog-content>
+<div class="headers">
+    <p class="title" mat-dialog-title><U>Ride Details</U></p>
+    <div class="star">
+        <app-star-rating [disabled]="rideData.rating ? true : false"></app-star-rating>
+    </div>
+</div>
+<!-- <p mat-dialog-title><U>Ride Details</U></p> -->
+<mat-dialog-content style="padding-top: 0;">
     <div class="details">
         <div class="details-item">
             <div class="item-1">

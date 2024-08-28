@@ -15,14 +15,14 @@ export class DriverOpsService {
   constructor(private http: HttpClient, private notif: NotificationService) {}
 
   addDriverOps(data: DriverOps): Observable<DriverOpsRes> {
-    return this.http.post<DriverOpsRes>(this.url + 'driveroperation', data);
+    return this.http.post<DriverOpsRes>(this.url + 'driveroperations', data);
   }
 
   checkIfOperational(): Observable<{
     data?: DriverOpsRes;
     error?: { status: number; message: string };
   }> {
-    return this.http.get<DriverOpsRes>(this.url + 'driver/driveroperation').pipe(
+    return this.http.get<DriverOpsRes>(this.url + 'drivers/driveroperations').pipe(
       map((data: DriverOpsRes) => ({ data })),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
@@ -41,8 +41,12 @@ export class DriverOpsService {
   }
 
   removeDriverOps(id: number): Observable<string> {
-    return this.http.delete<string>(this.url + `driveroperation/${id}`, {
+    return this.http.delete<string>(this.url + `driveroperations/${id}`, {
       responseType: 'text' as 'json',
     });
+  }
+
+  updateStatus(driverOpsId : number,updateStatus : any) : Observable<DriverOpsRes>{
+    return this.http.patch<DriverOpsRes>(this.url + `driveroperations/${driverOpsId}/status`,updateStatus)
   }
 }

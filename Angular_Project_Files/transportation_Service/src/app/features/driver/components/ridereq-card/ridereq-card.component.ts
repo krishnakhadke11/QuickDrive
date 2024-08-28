@@ -8,8 +8,18 @@ import { Customer } from '../../../../core/models/Customer';
 import { DriverService } from '../../services/driver.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../core/services/notification.service';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { EndRide } from '../../../../core/models/EndRide';
+import { RideRequestResponse } from '../../../../core/models/RideRequestResponse';
+import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
+import { RideService } from '../../../../core/services/ride.service';
+import { RideIdRequest } from '../../../../core/models/RideIdRequest';
+import { PaymentRequest } from '../../../../core/models/PaymentRequest';
+import { PaymentService } from '../../services/payment.service';
+import { Payment } from '../../../../core/models/Payment';
+import { DriverOpsService } from '../../services/driver-ops.service';
+import { RideRequestDto } from '../../../../core/models/RideRequestDto';
+import { TestRequest } from '@angular/common/http/testing';
 
 @Component({
   selector: 'app-ridereq-card',
@@ -19,14 +29,10 @@ import { EndRide } from '../../../../core/models/EndRide';
   styleUrl: './ridereq-card.component.css',
 })
 export class RidereqCardComponent {
-  @Input() reqId: number | null = null;
-  @Input() pickup: string = '';
-  @Input() drop: string = '';
-  @Input() fare: number = 0;
-  @Input() distance: string = '';
-  @Input() duration: string = '';
+  @Input() driverOps : DriverOpsRes | null = null;
+  @Input() rideReq : RideRequestResponse | null = null;
 
-  @Input() rideId: number | null = null;
+  @Input() ride : Ride | null =  null;
   @Input() customer: Customer | null = null;
 
   @Output() isHiredChange = new EventEmitter<{
@@ -44,30 +50,105 @@ export class RidereqCardComponent {
     private rideReqService: RideRequestService,
     private driverService: DriverService,
     private router: Router,
-    private notif: NotificationService
+    private notif: NotificationService,
+    private rideService : RideService,
+    private paymentService : PaymentService,
+    private driverOpsService : DriverOpsService
   ) {}
 
   acceptRequest() {
-    if (this.reqId) {
-      this.acceptRideSubs =this.rideReqService.acceptRideRequest(this.reqId).subscribe((res: Ride) => {
-          this.bookedRide = res;
-          this.isHired = true;
-          this.isHiredChange.emit({
-            ride: this.bookedRide,
-            isHired: this.isHired,
-          });
-        });
+    const ride : RideRequestDto = {
+      pickupLocation : this.rideReq?.pickupLocation!,
+      pickupName : this.rideReq?.pickupName!,
+      dropLocation : this.rideReq?.dropLocation!,
+      dropName : this.rideReq?.dropName!,
+      fare : this.rideReq?.fare!,
+      distance : this.rideReq?.distance!,
+      duration : this.rideReq?.duration!,
+      paymentType : this.rideReq?.paymentType!,
+      customer : {
+        id : this.rideReq?.customer.id!
+      },
+      cab : {
+        id : this.driverOps?.cab.id!
+      },
+      driver : {
+        id : this.driverOps?.driver.id!,
+      }
     }
+
+    console.log("hello",ride)
+
+    this.rideService.createRide(ride).subscribe((res : Ride) => {
+      console.log("hello")
+      if(res && res.id){
+        this.updateRideInRideReq(res.id);
+        this.createPayment(res.id);
+        this.updateStatusOfDriverOps();
+
+        this.isHired = true
+        this.bookedRide = res;
+        this.isHiredChange.emit({
+          ride: this.bookedRide,
+          isHired: this.isHired,
+        });
+      }
+      
+    })
+  }
+
+  updateStatusOfDriverOps(){
+    const updateStatus : any = {
+      status : 'HIRED'
+    }
+
+    this.driverOpsService.updateStatus(this.driverOps?.id!,updateStatus).subscribe((res : DriverOpsRes) => {
+      console.log("Driver Ops Status Update : ",res);
+    })
+  }
+
+  createPayment(rideId : number) {
+   
+    const paymentRequest : PaymentRequest = {
+      paymentType : this.rideReq?.paymentType!,
+      paymentStatus : 'PENDING',
+      ride : {
+        id : rideId
+      } 
+    }
+
+    this.paymentService.createPayment(paymentRequest).subscribe((res : Payment) => {
+      console.log("Creating Payment : ",res);
+    })
+  }
+
+  updateRideInRideReq(rideId : number) {
+    const rideObj : RideIdRequest = {
+      id : rideId
+    }
+    this.rideReqService.updateRideInRideRequest(this.rideReq?.id!,rideObj).subscribe((res) => {
+      this.updateBookingStatusInRideReq();
+      console.log("Ride Request While Ride Update : " , res);
+    });
+  }
+
+  updateBookingStatusInRideReq(){
+    const updateBookingStatus : any = {
+      bookingStatus : 'ACCEPTED'
+    }
+    this.rideReqService.updateBookingStatusInRideReq(this.rideReq?.id!,updateBookingStatus).subscribe((res) =>{
+      console.log("Ride Request while Booking status : ",res);
+    });
   }
 
   onEndReq() {
    const endRideData : EndRide = {
-    rideId : this.rideId!,
-    pickupName : this.pickup,
-    dropName : this.drop,
-    fare : this.fare,
-    distance : this.distance,
-    duration : this.duration,
+    rideId : this.ride?.id!,
+    pickupName : this.ride?.pickupName!,
+    dropName : this.ride?.dropName!,
+    fare : this.ride?.fare!,
+    distance :  this.ride?.distance!,
+    duration : this.ride?.duration!,
     customer : {
       email : this.customer?.user.email!,
       fullname : this.customer?.user.firstName + " " + this.customer?.user.lastName

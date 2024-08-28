@@ -12,6 +12,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { MapRouteComponent } from '../../../../shared/components/map-route/map-route.component';
 import { LatLng } from '../../../../core/models/LatLng';
 import { MapboxService } from '../../../../core/services/mapbox.service';
+import { RideRequestResponse } from '../../../../core/models/RideRequestResponse';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { MapboxService } from '../../../../core/services/mapbox.service';
   styleUrl: './riderequest.component.css'
 })
 export class RideRequestComponent implements OnInit,OnDestroy{
-  rideRequests : RideRequest[] = [];  
+  rideRequests : RideRequestResponse[] = [];  
   driverOps : DriverOpsRes | null = null;
   isHired : boolean = false; 
   hiredRide : Ride | null = null;
@@ -55,17 +56,17 @@ export class RideRequestComponent implements OnInit,OnDestroy{
   }
 
   getLatestRideIfHired(){
-   this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
+   this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride[]) => {
       if(this.isHired){
-        this.hiredRide = res;
+        this.hiredRide = res[0];
       }
     })
   }
 
   getAllRideReq(){
-    this.rideReqSubscription = this.rideReqService.getAllRideRequestsAsPerDriverOps().subscribe({next :(res : RideRequest[])=>{
+    this.rideReqSubscription = this.rideReqService.getAllRideRequestsAsPerDriverOps().subscribe((res : RideRequestResponse[])=>{
       this.rideRequests = res;
-    }})
+    })
   }
 
   driverStatusChange(data : {ride : Ride,isHired : boolean}){

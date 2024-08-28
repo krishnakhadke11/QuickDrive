@@ -12,6 +12,6 @@ export class CustomerService {
   constructor(private http : HttpClient) { }
 
   getAllPayments() : Observable<Payment[]> {
-    return this.http.get<Payment[]>(environment.BASE_URL + 'customer/payments');
+    return this.http.get<Payment[]>(environment.BASE_URL + 'customers/payments');
   }
 }

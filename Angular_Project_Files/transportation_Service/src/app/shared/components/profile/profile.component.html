@@ -54,28 +54,28 @@
   <div class="profile-details">
     <div class="profile-row">
       <label>First Name:</label>
-      <span *ngIf="userCustomer">{{ userCustomer.user.firstName }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.firstName }}</span>
+      <span *ngIf="userCustomer">{{ userCustomer.user.firstName! }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.firstName }}</span>
     </div>
     <div class="profile-row">
       <label>Last Name:</label>
       <span *ngIf="userCustomer">{{ userCustomer.user.lastName }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.lastName }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.lastName }}</span>
     </div>
     <div class="profile-row">
       <label>Email:</label>
       <span *ngIf="userCustomer">{{ userCustomer.user.email }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.email }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.email }}</span>
     </div>
     <div class="profile-row">
       <label>Phone Number:</label>
       <span *ngIf="userCustomer">{{ userCustomer.user.phoneNumber }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.phoneNumber }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.phoneNumber }}</span>
     </div>
     <div class="profile-row">
       <label>Address:</label>
       <span *ngIf="userCustomer">{{ userCustomer.user.address }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.address }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.address }}</span>
     </div>
     <div class="profile-row" *ngIf="userDriver">
       <label>Driving License:</label>
@@ -84,7 +84,7 @@
     <div class="profile-row">
       <label>Role:</label>
       <span *ngIf="userCustomer">{{ userCustomer.user.role }}</span>
-      <span *ngIf="userDriver">{{ userDriver.user.role }}</span>
+      <span *ngIf="userDriver">{{ userDriver.user?.role }}</span>
     </div>
     <button class="edit-button" mat-raised-button (click)="onEdit()">
       Edit

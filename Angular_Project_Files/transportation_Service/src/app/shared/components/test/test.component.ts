@@ -9,31 +9,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-map',
   standalone : true,
-  imports : [MatButtonModule,CommonModule,MatCardModule,MatListModule,MatIconModule,MatDividerModule,MatToolbarModule],
+  imports : [StarRatingComponent,MatToolbarModule],
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
 
-  user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'johndoe@example.com',
-    phoneNumber: '+1234567890',
-    address: '123 Main St, Springfield',
-    role: 'Driver',
-    drivingLicense: 'DL123456'
-  };
 
-  
-
-  editProfile() {
-    // Logic to navigate to the edit page or open a dialog for editing
-  }
 
 
   constructor(private http : HttpClient){

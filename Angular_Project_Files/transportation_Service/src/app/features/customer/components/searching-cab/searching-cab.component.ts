@@ -75,7 +75,7 @@ export class SearchingCabComponent implements OnInit, OnDestroy {
       this.dialogAfterCloseAction()
       this.isAccepted = false;
       this.stopPolling();
-    }, 30000);
+    }, 120000);
   }
 
   dialogAfterCloseAction(): void {

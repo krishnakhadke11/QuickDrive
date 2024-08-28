@@ -1,3 +1,13 @@
+.headers{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    
+}
+.star{
+    margin-bottom: 2%;
+}
+
 .details{
     display: flex;
     flex-direction: column;

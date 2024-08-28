@@ -4,11 +4,11 @@ import { Driver } from "./Driver";
 import { PaymentType } from "./PaymentType";
 
 export interface Ride {
-    id: number;
-    pickupLocation: string;
-    pickupName:string;
-    dropLocation: string;
-    dropName : string;
+    id?: number;
+    pickupLocation?: string;
+    pickupName?:string;
+    dropLocation?: string;
+    dropName? : string;
     rating?: number
     fare?: number;
     distance?: string; 

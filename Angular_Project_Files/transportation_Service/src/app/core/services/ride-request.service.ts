@@ -6,6 +6,7 @@ import { catchError, EMPTY, Observable, Subscription, throwError } from 'rxjs';
 import { RideRequestResponse } from '../models/RideRequestResponse';
 import { Ride } from '../models/Ride';
 import { NotificationService } from './notification.service';
+import { RideIdRequest } from '../models/RideIdRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,16 @@ export class RideRequestService implements OnDestroy{
   
   //For Customer
   createRideRequest(rideRequest : RideRequest){
-    return this.http.post(this.url + 'riderequest',rideRequest);
+    return this.http.post(this.url + 'riderequests',rideRequest);
   }
 
   getRideRequest(rideId : number){
-    return this.http.get<RideRequestResponse>(this.url + `riderequest/${rideId}/ride`);
+    return this.http.get<RideRequestResponse>(this.url + `riderequests/${rideId}/rides`);
   }
 
   //For Driver
-  getAllRideRequestsAsPerDriverOps() : Observable<RideRequest[]>{
-    return this.http.get<RideRequest[]>(this.url + 'riderequest/driver').pipe(catchError((err) => {
+  getAllRideRequestsAsPerDriverOps() : Observable<RideRequestResponse[]>{
+    return this.http.get<RideRequestResponse[]>(this.url + 'drivers/riderequests').pipe(catchError((err) => {
       if(err instanceof HttpErrorResponse && err.status === 404){
         this.notif.showError("Driver is not operational");
         return EMPTY;
@@ -37,12 +38,20 @@ export class RideRequestService implements OnDestroy{
     }));
   }
   
-  acceptRideRequest(id : number) : Observable<Ride>{
-    return this.http.get<Ride>(this.url + `riderequest/driver/accept/${id}`)
-  }
+  // acceptRideRequest(id : number) : Observable<Ride>{
+  //   return this.http.get<Ride>(this.url + `riderequest/driver/accept/${id}`)
+  // }
 
   deleteRideReq(id : number) : Observable<string> {
-    return this.http.delete<string>(this.url + `riderequest/${id}`,{responseType : 'text' as 'json'})
+    return this.http.delete<string>(this.url + `riderequests/${id}`,{responseType : 'text' as 'json'})
+  }
+
+  updateRideInRideRequest(rideReqId : number,data : RideIdRequest){
+    return this.http.patch<RideRequestResponse>(this.url + `riderequests/${rideReqId}/rides`,data);
+  }
+
+  updateBookingStatusInRideReq(rideReqId : number,data : any){
+    return this.http.patch<RideRequestResponse>(this.url + `riderequests/${rideReqId}/booking-status`,data);
   }
 
   ngOnDestroy(): void {

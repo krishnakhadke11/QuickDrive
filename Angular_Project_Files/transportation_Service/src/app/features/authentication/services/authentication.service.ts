@@ -22,7 +22,7 @@ export class AuthenticationService {
    }
 
   customerSignup (data : any){
-    return this.http.post(this.base_url + `auth/customer/signup`,data).pipe(catchError(err =>{
+    return this.http.post(this.base_url + `auth/customers/signup`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Invalid Credentials")
       }else
@@ -34,7 +34,7 @@ export class AuthenticationService {
   }
 
   driverSignup(data : any){
-    return this.http.post(this.base_url + `auth/driver/signup`,data).pipe(catchError(err =>{
+    return this.http.post(this.base_url + `auth/drivers/signup`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Please add your right details")
       }else
@@ -81,16 +81,11 @@ export class AuthenticationService {
     if(user){
       const newUserObj = new User(user._token,user._refreshToken,this.decryptData(user._role));
       this.user.next(newUserObj);
-      // if(newUserObj.role === 'CUSTOMER'){
-      //   this.router.navigate(['/customer'])
-      // }else if(newUserObj.role === 'DRIVER'){
-      //   // this.router.navigate(['/driver'])
-      // }else{
-      //   this.router.navigate(['/login'])
-      // }
       return;
+    }else{
+      this.router.navigate(['/login'])
     }
-    // this.router.navigate(['/login'])
+    
   }
 
   encryptData(data: string) : string {

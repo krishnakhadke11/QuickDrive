@@ -12,8 +12,8 @@ export interface flattenPayment {
   id?:number;
   paymentType: string;
   paymentStatus: string;
-  pickupName: string;
-  dropName: string;
+  pickupName?: string;
+  dropName?: string;
   fare?: number;
 }
 
@@ -47,7 +47,6 @@ export class PaymentsComponent implements OnInit  {
   loadPayments(){
     this.customerService.getAllPayments().subscribe((data : Payment[]) =>{
       if(data){
-
         const flattenedData : flattenPayment[] = data.map(payment => ({
           id : payment.id,
           paymentType : payment.paymentType,

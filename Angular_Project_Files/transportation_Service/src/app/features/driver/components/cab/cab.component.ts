@@ -13,6 +13,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { CurrencyPipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DriverService } from '../../services/driver.service';
 
 @Component({
   selector: 'app-cab',
@@ -31,7 +32,7 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['srNo', 'registerNo', 'seatingCapacity', 'color', 'model'];
   dataSource = new MatTableDataSource<Cab>();
 
-  constructor(private cabService : CabService,private userService : UserService){
+  constructor(private cabService : CabService,private driverService : DriverService,private userService : UserService){
 
   }
   
@@ -63,7 +64,7 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
         color: form.value.color,
         model: form.value.model,
         user : {
-          id : res?.user.id
+          id : res?.user?.id
         }
       };
       this.CabSubscription = this.cabService.addCab(newCab).subscribe((res : Cab) =>{
@@ -74,7 +75,7 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
   }
 
   getAllCabs(){
-    this.cabService.driverOwnedCabs().subscribe((res : Cab[]) =>{
+    this.driverService.driverOwnedCabs().subscribe((res : Cab[]) =>{
       if(res){
         this.cabs = res;
         this.dataSource.data = this.cabs;

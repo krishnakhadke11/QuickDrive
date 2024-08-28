@@ -4,7 +4,6 @@ import { UserProfile } from '../models/UserProfile';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { AuthenticationService } from '../../features/authentication/services/authentication.service';
-import { Role } from '../models/Role';
 import { Customer } from '../models/Customer';
 import { Driver } from '../models/Driver';
 import { environment } from '../../../environments/environment';
@@ -38,21 +37,21 @@ export class UserService implements  OnDestroy{
   }
 
   getCustomerDetails() : Observable<Customer>{
-    return this.http.get<Customer>(environment.BASE_URL + 'customer/details')
+    return this.http.get<Customer>(environment.BASE_URL + 'customers/details')
   }
 
   getDriverDetails() : Observable<Driver>{
-    return this.http.get<Driver>(environment.BASE_URL + 'driver/details')
+    return this.http.get<Driver>(environment.BASE_URL + 'drivers/details')
   }
 
   updateCustomer(customerData : Customer) {
-    return this.http.put<Customer>(environment.BASE_URL + 'customer',customerData).pipe(tap((res : Customer) =>{
+    return this.http.put<Customer>(environment.BASE_URL + 'customers',customerData).pipe(tap((res : Customer) =>{
       this.userCustomer.next(res);
     }));
   }
 
   updateDriver(driverData : Driver) {
-    return this.http.put<Driver>(environment.BASE_URL + 'driver',driverData).pipe(tap((res : Driver) =>{
+    return this.http.put<Driver>(environment.BASE_URL + 'drivers',driverData).pipe(tap((res : Driver) =>{
       this.userDriver.next(res);
     }));
   }

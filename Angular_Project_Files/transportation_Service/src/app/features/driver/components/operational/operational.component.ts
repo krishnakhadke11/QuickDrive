@@ -13,6 +13,7 @@ import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
 import { Subscription } from 'rxjs';
 import { OperationalResponse } from '../../../../core/models/OperationalResponse';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { DriverService } from '../../services/driver.service';
 
 @Component({
   selector: 'app-operational',
@@ -37,12 +38,12 @@ export class OperationalComponent implements OnInit{
     // cab : this.cabId
   })
 
-  constructor(private cabService : CabService,private driverOpsService : DriverOpsService,private notif : NotificationService){
+  constructor(private driverService : DriverService,private driverOpsService : DriverOpsService,private notif : NotificationService){
 
   }
 
   ngOnInit(): void {
-      this.driverCabsSubscription = this.cabService.driverOwnedCabs().subscribe((res:Cab[] | []) =>{
+      this.driverCabsSubscription = this.driverService.driverOwnedCabs().subscribe((res:Cab[] | []) =>{
         this.driverCabs = res;
       })
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RideCardComponent } from '../ride-card/ride-card.component';
 import { CommonModule } from '@angular/common';
 import { Ride } from '../../../../core/models/Ride';
-import { RideService } from '../../services/ride.service';
+import { RideService } from '../../../../core/services/ride.service';
 
 @Component({
   selector: 'app-ride',
@@ -19,7 +19,7 @@ export class RideComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.rideService.getAllRides().subscribe((res : Ride[]) =>{
+    this.rideService.getCustomersRides().subscribe((res : Ride[]) =>{
       if(res){
         this.rides = res;
       }

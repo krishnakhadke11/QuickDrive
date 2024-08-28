@@ -51,9 +51,9 @@ export class OngoingRidesMapComponent {
   }
 
   getLatestRideIfHired(){
-   this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
+   this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride[]) => {
       if(this.isHired){
-        this.hiredRide = res;
+        this.hiredRide = res[0];
         this.setCoordinates();
       }
     })
@@ -61,7 +61,7 @@ export class OngoingRidesMapComponent {
 
   setCoordinates() {
     if(this.hiredRide){
-      this.latLng = this.mapboxService.latLngExtraction(this.hiredRide.pickupLocation,this.hiredRide.dropLocation);
+      this.latLng = this.mapboxService.latLngExtraction(this.hiredRide.pickupLocation!,this.hiredRide.dropLocation!);
     }
   }
 

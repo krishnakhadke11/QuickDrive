@@ -1,12 +1,7 @@
 <div class="container1" *ngIf="isHired && hiredRide">
   <div class="hired-container">
     <app-ridereq-card
-      [rideId]="hiredRide.id"
-      [pickup]="hiredRide.pickupName"
-      [drop]="hiredRide.dropName"
-      [fare]="hiredRide.fare!"
-      [distance]="hiredRide.distance!"
-      [duration]="hiredRide.duration!"
+      [ride]="hiredRide"
       [customer]="hiredRide.customer!"
     >
     </app-ridereq-card>

@@ -61,11 +61,11 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
 
     if(this.userDriver && this.userCustomer ===null){
       this.profileUpdate.patchValue({
-        firstName: this.userDriver.user.firstName,
-        lastName: this.userDriver.user.lastName,
-        email: this.userDriver.user.email,
-        phoneNumber: this.userDriver.user.phoneNumber,
-        address: this.userDriver.user.address,
+        firstName: this.userDriver.user?.firstName,
+        lastName: this.userDriver.user?.lastName,
+        email: this.userDriver.user?.email,
+        phoneNumber: this.userDriver.user?.phoneNumber,
+        address: this.userDriver.user?.address,
         driversLicense : this.userDriver.driversLicense
       });
     }
@@ -102,13 +102,13 @@ export class ProfileUpdateComponent implements OnInit , CanComponentDeactivate{
         id : this.userDriver.id,
         driversLicense : this.profileUpdate.value.driversLicense,
         user : {
-          id: this.userDriver.user.id,
+          id: this.userDriver.user?.id,
           firstName: this.profileUpdate.value.firstName,
           lastName: this.profileUpdate.value.lastName,
           email: this.profileUpdate.value.email,
           phoneNumber: this.profileUpdate.value.phoneNumber,
           address: this.profileUpdate.value.address,
-          role: this.userDriver.user.role,
+          role: this.userDriver.user?.role,
         }
       }
 

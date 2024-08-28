@@ -24,11 +24,11 @@ import { EarningResponse } from '../../../../core/models/EarningResponse';
 
 export interface flattenRide {
   id?: number;
-  pickupName: string;
-  dropName: string;
-  fare: number;
-  paymentType: PaymentType;
-  model: string;
+  pickupName?: string;
+  dropName?: string;
+  fare?: number;
+  paymentType?: PaymentType;
+  model?: string;
 }
 
 @Component({
@@ -157,9 +157,9 @@ export class HomeComponent implements OnInit {
   }
 
   getLatestRideIfHired(){
-    this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride) => {
+    this.latestRideSubscription = this.driverService.getLatestRideOfDriver().subscribe((res :Ride[]) => {
        if(this.isHired){
-         this.hiredRide = res;
+         this.hiredRide = res[0];
         }
       })
    }

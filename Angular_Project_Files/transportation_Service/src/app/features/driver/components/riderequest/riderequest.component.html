@@ -1,12 +1,8 @@
 <div class="container-1" *ngIf="!isHired && rideRequests.length > 0">
   <app-ridereq-card
     *ngFor="let req of rideRequests"
-    [reqId]="req.id!"
-    [pickup]="req.pickupName!"
-    [drop]="req.dropName!"
-    [fare]="req.fare!"
-    [distance]="req.distance!"
-    [duration]="req.duration!"
+    [rideReq]="req!"
+    [driverOps]="driverOps"
     (isHiredChange)="driverStatusChange($event)"
   ></app-ridereq-card>
 </div>
@@ -18,13 +14,9 @@
 <div class="container-3" *ngIf="isHired && hiredRide">
   <div class="hired-container">
     <app-ridereq-card
-      [rideId]="hiredRide.id"
-      [pickup]="hiredRide.pickupName"
-      [drop]="hiredRide.dropName"
-      [fare]="hiredRide.fare!"
-      [distance]="hiredRide.distance!"
-      [duration]="hiredRide.duration!"
+      [ride]="hiredRide"
       [customer]="hiredRide.customer!"
+      [driverOps]="driverOps"
     >
     </app-ridereq-card>
   </div>
