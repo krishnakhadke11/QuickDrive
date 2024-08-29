@@ -78,7 +78,7 @@ export class EndRideComponent implements OnInit{
 
   updateDriverOpsStatus() : Observable<DriverOpsRes> {
     const updateStatus : any = {
-      status : "AVAILABLE"
+      cabStatus : "AVAILABLE"
     }
     return this.driverOpsService.updateStatus(this.driverOps?.id!,updateStatus);
   }

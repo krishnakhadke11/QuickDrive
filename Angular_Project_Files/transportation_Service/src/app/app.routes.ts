@@ -4,7 +4,6 @@ import { LoginComponent } from './features/authentication/components/login/login
 import { SignupComponent } from './features/authentication/components/signup/signup.component';
 import { TestComponent } from './shared/components/test/test.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
-import { StarRatingComponent } from './shared/components/star-rating/star-rating.component';
 
 
 export const routes: Routes = [
@@ -23,10 +22,6 @@ export const routes: Routes = [
     {
         path : 'test',
         component : TestComponent
-    },
-    {
-        path : 'star',
-        component : StarRatingComponent
     },
     {
         path : 'unauthorized',

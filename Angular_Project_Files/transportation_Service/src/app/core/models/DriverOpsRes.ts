@@ -6,7 +6,7 @@ export interface DriverOpsRes{
     id : number;
     startTime : string;
     endTime : String;
-    status : CabStatus;
+    cabStatus : CabStatus;
     driver : Driver;
     cab : Cab;
 }

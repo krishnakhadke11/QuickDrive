@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { EMPTY, Observable } from 'rxjs';
 import { RideRequestDto } from '../models/RideRequestDto';
 import { Payment } from '../models/Payment';
+import { DriverRatingResponse } from '../models/DriverRatingResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,13 @@ export class RideService {
 
   getPaymentByRideId(rideId : number) : Observable<Payment> {
     return this.http.get<Payment>(this.url + `rides/${rideId}/payments`);
+  }
+
+  updateRating(rideId : number,rating : number) : Observable<Ride>{
+    const ratingUpdate : any = {
+      rating : rating
+    }
+
+    return this.http.patch<Ride>(this.url + `rides/${rideId}/rating`,ratingUpdate);
   }
 }

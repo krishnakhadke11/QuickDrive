@@ -4,6 +4,6 @@ import { CabStatus } from "./CabStatus";
 export interface DriverOps{
     startTime?: string;
     endTime?: string;
-    status?: CabStatus
+    cabStatus?: CabStatus
     cab?: Cab;
 }

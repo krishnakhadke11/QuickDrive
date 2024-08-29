@@ -45,9 +45,9 @@ export class RideRequestComponent implements OnInit,OnDestroy{
     this.driverOpsSubscription = this.driverOpsService.checkIfOperational().subscribe({next : (res) =>{
      if(res.data){
         this.driverOps = res.data!;
-        if(res.data && res.data.status === 'AVAILABLE'){
+        if(res.data && res.data.cabStatus === 'AVAILABLE'){
           this.isHired = false;
-        }else if(res.data && res.data.status === 'HIRED'){
+        }else if(res.data && res.data.cabStatus === 'HIRED'){
           this.isHired = true;
           this.getLatestRideIfHired();
         }

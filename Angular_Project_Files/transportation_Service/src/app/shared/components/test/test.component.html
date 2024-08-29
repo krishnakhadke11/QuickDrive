@@ -1,1 +1,31 @@
-<app-star-rating></app-star-rating>
+<div class="cab-details-container">
+  <div class="cab-details">
+    <h2>Cab Details</h2>  
+    <div class="info-item">
+      <span class="info-label">Cab:</span>
+      <span class="info-value">Lamborghini Urus</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Registration Number:</span>
+      <span class="info-value">MH12QW1212</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Seating Capacity:</span>
+      <span class="info-value">5</span>
+    </div>
+    <button mat-raised-button color="primary" (click)="endShift()">End Shift</button>
+  </div>
+
+  <div class="star-rating">
+    <h2>Star Rating</h2>
+    <div class="star-rating-container">
+      <mat-icon class="star-icon">star</mat-icon>
+      <mat-icon class="star-icon">star</mat-icon>
+      <mat-icon class="star-icon">star</mat-icon>
+      <mat-icon class="star-icon">star</mat-icon>
+      <mat-icon class="star-icon">star</mat-icon>
+    </div>
+    <p>Rating out of 5</p>
+    <p>Here you can provide some content about the star rating system.</p>
+  </div>
+</div>

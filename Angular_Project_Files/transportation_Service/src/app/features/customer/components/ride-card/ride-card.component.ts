@@ -18,15 +18,14 @@ export class RideCardComponent implements OnInit{
   @Input() ride : Ride | undefined;
   mapBoxSubscription1 : Subscription | null = null;
   mapBoxSubscription2 : Subscription | null = null;
-  // pickupName : string = '-- Pickup Location --'
-  // dropLocation : string = '-- Drop Location --';
+
 
   readonly dialog = inject(MatDialog);
   dialogRef: any;
 
   constructor(private mapboxService : MapboxService) { }
   ngOnInit(): void {
-    
+    console.log(this.ride)
   }
 
   onCardClick(){

@@ -14,9 +14,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class StarRatingComponent {
 
   @Input('disabled') disabled : boolean = true;
-  @Input('rating')  rating: number = 3;
+  @Input('rating')  rating: number = 0;
   @Input('starCount')  starCount: number = 5;
-  @Output()  ratingUpdated = new EventEmitter();
+  @Output()  ratingUpdated = new EventEmitter<number>();
 
   ratingArr : number[] = [];
 
@@ -29,7 +29,9 @@ export class StarRatingComponent {
   onClick(rating:number) {
     this.rating = rating
     console.log(rating)
-    this.ratingUpdated.emit(rating);
+    if(!this.disabled){
+      this.ratingUpdated.emit(rating);
+    }
     return false;
   }
 

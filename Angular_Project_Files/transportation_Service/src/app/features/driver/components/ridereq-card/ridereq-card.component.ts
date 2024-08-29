@@ -77,10 +77,8 @@ export class RidereqCardComponent {
       }
     }
 
-    console.log("hello",ride)
 
     this.rideService.createRide(ride).subscribe((res : Ride) => {
-      console.log("hello")
       if(res && res.id){
         this.updateRideInRideReq(res.id);
         this.createPayment(res.id);
@@ -99,11 +97,11 @@ export class RidereqCardComponent {
 
   updateStatusOfDriverOps(){
     const updateStatus : any = {
-      status : 'HIRED'
+      cabStatus : 'HIRED'
     }
 
     this.driverOpsService.updateStatus(this.driverOps?.id!,updateStatus).subscribe((res : DriverOpsRes) => {
-      console.log("Driver Ops Status Update : ",res);
+
     })
   }
 
@@ -118,7 +116,7 @@ export class RidereqCardComponent {
     }
 
     this.paymentService.createPayment(paymentRequest).subscribe((res : Payment) => {
-      console.log("Creating Payment : ",res);
+
     })
   }
 
@@ -128,7 +126,7 @@ export class RidereqCardComponent {
     }
     this.rideReqService.updateRideInRideRequest(this.rideReq?.id!,rideObj).subscribe((res) => {
       this.updateBookingStatusInRideReq();
-      console.log("Ride Request While Ride Update : " , res);
+
     });
   }
 
@@ -137,7 +135,7 @@ export class RidereqCardComponent {
       bookingStatus : 'ACCEPTED'
     }
     this.rideReqService.updateBookingStatusInRideReq(this.rideReq?.id!,updateBookingStatus).subscribe((res) =>{
-      console.log("Ride Request while Booking status : ",res);
+
     });
   }
 

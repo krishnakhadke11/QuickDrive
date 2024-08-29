@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { Cab } from '../../../core/models/Cab';
 import { EarningResponse } from '../../../core/models/EarningResponse';
 import { NotificationService } from '../../../core/services/notification.service';
+import { DriverRatingResponse } from '../../../core/models/DriverRatingResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,9 @@ export class DriverService {
         return throwError(() => error);
       }
     }));
+  }
+
+  getAverageRatingOfDriver() : Observable<DriverRatingResponse>{
+    return this.http.get<DriverRatingResponse>(this.url + 'drivers/average-rating');
   }
 }

@@ -12,7 +12,6 @@ import { MatListModule } from '@angular/material/list';
 import { Cab } from '../../../../core/models/Cab';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { CabStatus } from '../../../../core/models/CabStatus';
 import { DriverOpsService } from '../../services/driver-ops.service';
 import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
 import { NotificationService } from '../../../../core/services/notification.service';
@@ -143,11 +142,11 @@ export class HomeComponent implements OnInit {
         }
       } else {
         if(res.data){
-          this.status = res.data?.status!;
+          this.status = res.data?.cabStatus!;
           this.driverOps = res.data!;
-          if(res.data && res.data.status === 'AVAILABLE'){
+          if(res.data && res.data.cabStatus === 'AVAILABLE'){
             this.isHired = false;
-          }else if(res.data && res.data.status === 'HIRED'){
+          }else if(res.data && res.data.cabStatus === 'HIRED'){
             this.isHired = true;
             this.getLatestRideIfHired();
           }

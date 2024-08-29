@@ -1,9 +1,11 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Ride } from '../../../../core/models/Ride';
 import { StarRatingComponent } from "../../../../shared/components/star-rating/star-rating.component";
+import { RideService } from '../../../../core/services/ride.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ride-details-dialog',
@@ -12,12 +14,24 @@ import { StarRatingComponent } from "../../../../shared/components/star-rating/s
   templateUrl: './ride-details-dialog.component.html',
   styleUrl: './ride-details-dialog.component.css'
 })
-export class RideDetailsDialogComponent {
+export class RideDetailsDialogComponent implements OnDestroy {
   readonly data : any = inject<Ride>(MAT_DIALOG_DATA);
-  readonly rideData : Ride;
+  private dialogRef : any = inject(MatDialogRef<RideDetailsDialogComponent>) 
+  rideData : Ride;
 
-  constructor(){
+  ratingSubs : Subscription | null = null;
+
+  constructor(private rideService : RideService){
     this.rideData = this.data.rideData;
-    console.log(this.rideData);
   }
+  onRatingUpdate(rating : number){
+    this.ratingSubs =  this.rideService.updateRating(this.rideData.id!,rating).subscribe((res : Ride) => {
+      this.rideData.rating = res.rating;
+    })
+  }
+
+  ngOnDestroy(): void {
+      this.ratingSubs?.unsubscribe();
+  }
+
 }

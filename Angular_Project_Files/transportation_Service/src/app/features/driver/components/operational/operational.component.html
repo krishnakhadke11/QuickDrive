@@ -1,17 +1,14 @@
-<div class="container">
+<div class="container" *ngIf="!isDriverOps">
   <div class="main-content">
-    <!-- <p *ngIf="isOperational">You are already Operational</p> -->
     <form
       [formGroup]="addDriverOperationalForm"
       class="form-container"
-      *ngIf="!isDriverOps; else removeBtn"
     >
       <mat-form-field appearance="outline">
         <mat-label>Start Time</mat-label>
         <input
           class="start-time-inp"
           type="time"
-          [placeholder]="'eg. 11:00 AM'"
           formControlName="startTime"
           matInput
           readonly
@@ -33,17 +30,8 @@
         Start Shift
       </button>
     </form>
-    <ng-template #removeBtn>
-      <button
-        class="add-button"
-        mat-raised-button
-        (click)="onLogout()"
-      >
-        End Shift
-      </button>
-    </ng-template>
 
-    <div class="list-container" *ngIf="!isDriverOps; else driverOpsDetails">
+    <div class="list-container">
       <div appearance="fill">
         <mat-label>Select Cab</mat-label>
         <mat-selection-list [formControl]="cabId" [multiple]="false">
@@ -53,13 +41,40 @@
         </mat-selection-list>
       </div>
     </div>
-    <ng-template style="display: block" #driverOpsDetails>
-      <div>
-        <p>Your Operational now!</p>
-        <p><b>Cab</b> : {{ isDriverOps?.cab?.model }}</p>
-        <p><b>Registration Number</b> : {{ isDriverOps?.cab?.registerNo }}</p>
-        <p><b>Seating Capacity</b> : {{ isDriverOps?.cab?.seatingCapacity === 'SEVEN_SEATER' ? 7 : 5 }}</p>
-      </div>
-    </ng-template>
+
+  </div>
+</div>
+
+<!-- Driver is Operational Content -->
+<div class="cab-details-container" *ngIf="isDriverOps">
+  <div class="cab-details">
+    <h2>Cab Details</h2>
+    <div class="info-item">
+      <span class="info-label">Cab:</span>
+      <span class="info-value">{{ isDriverOps.cab.model }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Registration Number:</span>
+      <span class="info-value">{{ isDriverOps.cab.registerNo }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Seating Capacity:</span>
+      <span class="info-value">{{ isDriverOps.cab.seatingCapacity === 'SEVEN_SEATER' ? 7 : 5 }}</span>
+    </div>
+    <button
+        mat-raised-button
+        (click)="onLogout()"
+      >
+        End Shift
+      </button>
+  </div>
+
+  <div class="star-rating">
+    <h2>Star Rating</h2>
+    <div class="star-rating-container">
+      <app-star-rating [rating]="driverRating" [disabled]="true" ></app-star-rating>
+    </div>
+    <p>Rating out of 5</p>
+    <p>Here you can provide some content about the star rating system.</p>
   </div>
 </div>
