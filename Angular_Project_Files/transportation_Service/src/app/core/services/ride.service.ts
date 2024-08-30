@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Ride } from '../models/Ride';
 import { environment } from '../../../environments/environment';
 import { EMPTY, Observable } from 'rxjs';
-import { RideRequestDto } from '../models/RideRequestDto';
+import { RideRequestDto } from '../models/Requests/RideRequestDto';
 import { Payment } from '../models/Payment';
 import { DriverRatingResponse } from '../models/DriverRatingResponse';
 

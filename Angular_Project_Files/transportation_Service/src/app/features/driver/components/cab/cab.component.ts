@@ -14,6 +14,7 @@ import { CurrencyPipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DriverService } from '../../services/driver.service';
+import { CabRequest } from '../../../../core/models/Requests/CabRequest';
 
 @Component({
   selector: 'app-cab',
@@ -58,13 +59,13 @@ export class CabComponent implements OnInit,AfterViewInit, OnDestroy {
 
   addCabAction(form : FormGroup){
     this.UserSubscription = this.userService.userDriver.subscribe((res : Driver | null) =>{
-      const newCab: Cab = {
+      const newCab: CabRequest = {
         registerNo: form.value.registerNo,
         seatingCapacity: form.value.seatingCapacity,
         color: form.value.color,
         model: form.value.model,
         user : {
-          id : res?.user?.id
+          id : res?.user?.id!
         }
       };
       this.CabSubscription = this.cabService.addCab(newCab).subscribe((res : Cab) =>{

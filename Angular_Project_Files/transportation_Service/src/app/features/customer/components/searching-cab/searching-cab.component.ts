@@ -1,6 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
-import { RideRequest } from '../../../../core/models/RideRequest';
 import { RideRequestService } from '../../../../core/services/ride-request.service';
 import { CommonModule } from '@angular/common';
 
@@ -20,12 +19,11 @@ import { Subscription } from 'rxjs';
 export class SearchingCabComponent implements OnInit, OnDestroy {
   private intervalVar: any;
   private timeoutVar: any;
-  private timeEnded : boolean = false;
   private isAccepted : boolean = false;
   private rideRequestSubscription: Subscription | null = null;
   private deleteRideReqSubscription: Subscription | null = null;
 
-  rideReq: RideRequest | null = null;
+  rideReq: RideRequestResponse | null = null;
   isSearching: boolean = true;
   rideRequestResponseData: RideRequestResponse | null = null;
 

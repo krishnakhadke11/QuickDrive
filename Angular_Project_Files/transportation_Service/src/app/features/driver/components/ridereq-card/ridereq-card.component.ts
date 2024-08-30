@@ -13,12 +13,12 @@ import { EndRide } from '../../../../core/models/EndRide';
 import { RideRequestResponse } from '../../../../core/models/RideRequestResponse';
 import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
 import { RideService } from '../../../../core/services/ride.service';
-import { RideIdRequest } from '../../../../core/models/RideIdRequest';
-import { PaymentRequest } from '../../../../core/models/PaymentRequest';
+import { RideIdRequest } from '../../../../core/models/Requests/RideIdRequest';
+import { PaymentRequest } from '../../../../core/models/Requests/PaymentRequest';
 import { PaymentService } from '../../services/payment.service';
 import { Payment } from '../../../../core/models/Payment';
 import { DriverOpsService } from '../../services/driver-ops.service';
-import { RideRequestDto } from '../../../../core/models/RideRequestDto';
+import { RideRequestDto } from '../../../../core/models/Requests/RideRequestDto';
 import { TestRequest } from '@angular/common/http/testing';
 
 @Component({

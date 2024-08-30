@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, take, tap } from 'rxjs';
-import { UserProfile } from '../models/UserProfile';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { AuthenticationService } from '../../features/authentication/services/authentication.service';

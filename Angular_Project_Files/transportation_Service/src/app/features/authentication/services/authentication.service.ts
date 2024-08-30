@@ -1,13 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthResponse } from '../../../core/models/AuthResponse';
 import { User } from '../../../core/models/User';
 import { Role } from '../../../core/models/Role';
 import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../../environments/environment';
+import { DriverRequest } from '../../../core/models/Requests/DriverRequest';
+import { CustomerRequest } from '../../../core/models/Requests/CustomerRequest';
+import { Driver } from '../../../core/models/Driver';
+import { Customer } from '../../../core/models/Customer';
 
 
 @Injectable({
@@ -21,8 +25,8 @@ export class AuthenticationService {
 
    }
 
-  customerSignup (data : any){
-    return this.http.post(this.base_url + `auth/customers/signup`,data).pipe(catchError(err =>{
+  customerSignup (data : CustomerRequest) : Observable<Customer>{
+    return this.http.post<Customer>(this.base_url + `auth/customers/signup`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Invalid Credentials")
       }else
@@ -33,8 +37,8 @@ export class AuthenticationService {
     }))
   }
 
-  driverSignup(data : any){
-    return this.http.post(this.base_url + `auth/drivers/signup`,data).pipe(catchError(err =>{
+  driverSignup(data : DriverRequest) : Observable<Driver>{
+    return this.http.post<Driver>(this.base_url + `auth/drivers/signup`,data).pipe(catchError(err =>{
       if(err.status === 400){
         return throwError(()=> "Please add your right details")
       }else

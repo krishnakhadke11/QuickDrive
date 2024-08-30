@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { RideRequest } from '../models/RideRequest';
 import { catchError, EMPTY, Observable, Subscription, throwError } from 'rxjs';
 import { RideRequestResponse } from '../models/RideRequestResponse';
 import { Ride } from '../models/Ride';
 import { NotificationService } from './notification.service';
-import { RideIdRequest } from '../models/RideIdRequest';
+import { RideIdRequest } from '../models/Requests/RideIdRequest';
+import { RideRequest } from '../models/Requests/RideRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class RideRequestService implements OnDestroy{
   constructor(private http : HttpClient,private notif : NotificationService) { }
   
   //For Customer
-  createRideRequest(rideRequest : RideRequest){
-    return this.http.post(this.url + 'riderequests',rideRequest);
+  createRideRequest(rideRequest : RideRequest) : Observable<RideRequestResponse>{
+    return this.http.post<RideRequestResponse>(this.url + 'riderequests',rideRequest);
   }
 
   getRideRequest(rideId : number){

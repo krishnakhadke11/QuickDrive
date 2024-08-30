@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Payment } from '../../../core/models/Payment';
 import { Observable } from 'rxjs';
-import { PaymentRequest } from '../../../core/models/PaymentRequest';
+import { PaymentRequest } from '../../../core/models/Requests/PaymentRequest';
 
 @Injectable({
   providedIn: 'root'

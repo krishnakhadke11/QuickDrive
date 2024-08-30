@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RideRequest } from '../../../../core/models/RideRequest';
 import { RideRequestService } from '../../../../core/services/ride-request.service';
 import { Subscription,  } from 'rxjs';
 import { RidereqCardComponent } from '../ridereq-card/ridereq-card.component';

@@ -15,6 +15,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DriverRequest } from '../../../../core/models/Requests/DriverRequest';
+import { CustomerRequest } from '../../../../core/models/Requests/CustomerRequest';
+import { Customer } from '../../../../core/models/Customer';
+import { Driver } from '../../../../core/models/Driver';
 
 @Component({
   selector: 'app-signup',
@@ -61,7 +65,7 @@ export class SignupComponent implements OnDestroy {
 
 
   customerSignup() {
-    const data = {
+    const data : CustomerRequest = {
       user: {
         firstName: this.customerSignupForm.value.firstName,
         lastName: this.customerSignupForm.value.lastName,
@@ -73,14 +77,14 @@ export class SignupComponent implements OnDestroy {
     };
     this.signupSubscription = this.authService
       .customerSignup(data)
-      .subscribe((res) => {
+      .subscribe((res : Customer) => {
         console.log(res);
         this.router.navigate(['/login']);
       });
   }
 
   driverSignup() {
-    const data = {
+    const data : DriverRequest = {
       driversLicense: this.driverSignupForm.value.driversLicense,
       user: {
         firstName: this.driverSignupForm.value.firstName,
@@ -92,8 +96,7 @@ export class SignupComponent implements OnDestroy {
       },
     };
     console.log(data);
-    this.signupSubscription = this.authService.driverSignup(data).subscribe((res)=>{
-      console.log(res);
+    this.signupSubscription = this.authService.driverSignup(data).subscribe((res : Driver)=>{
       this.router.navigate(['/login'])
     });
   }

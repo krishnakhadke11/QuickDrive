@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { UserProfile } from '../../../core/models/UserProfile';
+// import { UserProfile } from '../../../core/models/UserProfile';
 import { Driver } from '../../../core/models/Driver';
 import { Customer } from '../../../core/models/Customer';
 import { UserService } from '../../../core/services/user.service';

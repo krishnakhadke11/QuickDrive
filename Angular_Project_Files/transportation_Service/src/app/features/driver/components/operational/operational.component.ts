@@ -6,7 +6,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
-import { DriverOps } from '../../../../core/models/DriverOpsReq';
+import { DriverOpsReq } from '../../../../core/models/Requests/DriverOpsReq';
 import { DriverOpsService } from '../../services/driver-ops.service';
 import { DriverOpsRes } from '../../../../core/models/DriverOpsRes';
 import { Subscription } from 'rxjs';
@@ -79,7 +79,7 @@ export class OperationalComponent implements OnInit{
   onSubmit(){
     const selectedCabId = this.cabId.value;
     if(selectedCabId){
-      const newDriverOps : DriverOps = {
+      const newDriverOps : DriverOpsReq = {
         startTime : this.addDriverOperationalForm.value.startTime!,
         endTime : this.addDriverOperationalForm.value.endTime!,
         cabStatus : 'AVAILABLE',

@@ -1,7 +1,7 @@
 import { CabIdRequest } from "./CabIdRequest";
 import { CustomerIdRequest } from "./CustomerIdRequest";
 import { DriverIdRequest } from "./DriverIdRequest";
-import { PaymentType } from "./PaymentType";
+import { PaymentType } from "../PaymentType";
 
 export interface RideRequestDto {
     pickupLocation: string;
@@ -14,6 +14,6 @@ export interface RideRequestDto {
     duration: string; 
     paymentType: PaymentType; 
     customer: CustomerIdRequest; 
-    cab: CabIdRequest; 
+    cab: CabIdRequest;   
     driver: DriverIdRequest; 
 }

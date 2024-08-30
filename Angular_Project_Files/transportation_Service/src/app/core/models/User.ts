@@ -1,5 +1,3 @@
-import { Role } from "./Role";
-
 export class User{
     constructor(
         private _token:string,

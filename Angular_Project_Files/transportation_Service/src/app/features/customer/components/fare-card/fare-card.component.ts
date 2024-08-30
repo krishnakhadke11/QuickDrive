@@ -7,11 +7,11 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../environments/environment';
 import { RideRequestService } from '../../../../core/services/ride-request.service';
-import { RideRequest } from '../../../../core/models/RideRequest';
 import { PaymentType } from '../../../../core/models/PaymentType';
 import { SeatingCapacity } from '../../../../core/models/SeatingCapacity';
+import { RideRequestResponse } from '../../../../core/models/RideRequestResponse';
+import { RideRequest } from '../../../../core/models/Requests/RideRequest';
 
 interface Payment {
   value: string;
@@ -35,9 +35,9 @@ export class FareCardComponent {
   @Input() dropLocation!: string | undefined;
   @Input() pickupLocation!:string | undefined;
   @Input() duration!:string | undefined;
-  @Input() seatingCapacity : SeatingCapacity | undefined;
-  @Input() pickupName : string | undefined;
-  @Input() dropName : string | undefined;
+  @Input() seatingCapacity! : SeatingCapacity | undefined;
+  @Input() pickupName! : string | undefined;
+  @Input() dropName! : string | undefined;
 
   isProcessing : boolean = false;
   // @Input() paymentType!: string | null;
@@ -56,18 +56,18 @@ export class FareCardComponent {
   onBooking(){
     this.isProcessing = true;
     const rideRequest : RideRequest  = {
-        pickupLocation : this.pickupLocation,
-        pickupName : this.pickupName,
-        dropLocation : this.dropLocation,
-        dropName : this.dropName,
-        distance : this.distance,
-        duration : this.duration,
-        fare : this.fareAmount,
-        paymentType : this.paymentType,
-        seatingCapacity : this.seatingCapacity
+        pickupLocation : this.pickupLocation!,
+        pickupName : this.pickupName!,
+        dropLocation : this.dropLocation!,
+        dropName : this.dropName!,
+        distance : this.distance!,
+        duration : this.duration!,
+        fare : this.fareAmount!,
+        paymentType : this.paymentType!,
+        seatingCapacity : this.seatingCapacity!
     }
    
-    this.rideReqService.createRideRequest(rideRequest).subscribe((res)=>{
+    this.rideReqService.createRideRequest(rideRequest).subscribe((res : RideRequestResponse)=>{
       this.router.navigate(['/customer/searchingcab'],{state : {rideRequest : res}})
     })
     
