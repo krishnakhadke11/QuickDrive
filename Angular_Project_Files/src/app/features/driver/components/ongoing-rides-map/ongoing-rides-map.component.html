@@ -1,0 +1,22 @@
+<div class="container1" *ngIf="isHired && hiredRide">
+  <div class="map-container">
+    <app-map-route route
+      [sourceLat]="latLng?.srcLat!"
+      [sourceLng]="latLng?.srcLng!"
+      [destLat]="latLng?.destLat!"
+      [destLng]="latLng?.destLng!"
+    ></app-map-route>
+  </div>
+
+  <div class="hired-container" cdkDrag>
+    <app-ridereq-card
+      [ride]="hiredRide"
+      [customer]="hiredRide.customer!"
+    >
+    </app-ridereq-card>
+  </div>
+</div>
+
+<div class="container2" *ngIf="!isHired && !hiredRide">
+  <h6 style="align-self: center; justify-self: center">No On Going Rides</h6>
+</div>

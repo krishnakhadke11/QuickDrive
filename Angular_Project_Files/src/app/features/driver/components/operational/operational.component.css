@@ -1,0 +1,273 @@
+.container{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content{
+    /* background: red; */
+    height: 50%;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-container{
+    /* background-color: red; */
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-container{
+    /* background-color: black; */
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/*Driver is Operational  */
+
+.cab-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 24px;
+    height: 90%;
+    width: 100%;
+  }
+  
+  .cab-details, .star-rating {
+    width: 100%;
+    max-width: 800px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+  
+  h2 {
+    margin-bottom: 16px;
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .info-label {
+    font-weight: bold;
+  }
+  
+  .info-value {
+    text-align: right;
+  }
+  
+  .star-rating-container {
+    display: flex;
+    gap: 4px;
+    font-size: 24px;
+    color: gold;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  
+  .star-icon {
+    font-size: 24px;
+  }
+  
+  button {
+    display: block;
+    margin-top: 16px;
+  }
+
+
+
+/* Mobile view */
+
+/* @media only screen and (max-width: 768px) {
+  
+  .container {
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .start-time-inp {
+    width: 100%;
+  }
+
+  .add-button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .list-container {
+    margin-top: 20px;
+  }
+
+  mat-selection-list {
+    width: 100%;
+  }
+
+  mat-list-option {
+    font-size: 14px;
+  }
+
+  .cab-details-container {
+    width: 100%;
+  }
+
+  .cab-details {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .info-item {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .star-rating {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .star-rating-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 14px;
+    text-align: center;
+  }
+} */
+
+@media only screen and (max-width: 768px ) {
+
+  /* Container adjustments */
+  .container {
+    padding: 5px;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* Main content adjustments */
+  .main-content {
+    padding: 5px;
+    width: 100%;
+  }
+
+  /* Form field styles */
+  .form-container {
+    flex-direction: column;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .start-time-inp {
+    width: 100%;
+  }
+
+  /* Button adjustments */
+  .add-button {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* List container adjustments */
+  .list-container {
+    margin-top: 10px;
+  }
+
+  mat-selection-list {
+    width: 100%;
+  }
+
+  mat-list-option {
+    font-size: 12px;
+  }
+
+  /* Cab details styles */
+  .cab-details-container {
+    width: 100%;
+  }
+
+  .cab-details {
+    width: -webkit-fill-available;  
+    margin: 2%;
+  }
+
+  .info-item {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Star rating section adjustments */
+  .star-rating {
+    margin-top: 15px;
+    width: -webkit-fill-available;  
+    margin: 2%;
+  }
+
+  .star-rating-container {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  /* Heading adjustments */
+  h2 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* Adjust button spacing for better tap targets */
+  button {
+    padding: 8px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="booking-section">
+    <div class="form-header">
+      <p style="font-size: 30px; line-height: 10px"><U>Book a cab</U></p>
+    </div>
+    <div class="form-container">
+      <mat-label><strong> Pickup Location </strong></mat-label>
+      <!-- inp 1 -->
+      <app-autocomplete (coordinatesSelected)="onPickupCoordinates($event)"/>
+      <mat-label><b>Drop Location</b></mat-label>
+      <!-- Inp 2 -->
+      <app-autocomplete (coordinatesSelected)="onDropCoordinates($event)"/>
+      <button mat-fab class="btn" (click)="onCheckExpense()">Check Expense</button>
+    </div>
+  </div>
+  <div class="img-section">
+    <img src="assets/img/home_page_gps.gif" alt="" />
+  </div>
+</div>

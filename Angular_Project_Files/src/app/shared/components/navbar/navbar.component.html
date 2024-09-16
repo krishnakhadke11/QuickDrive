@@ -1,0 +1,112 @@
+<mat-toolbar class="nav-container nav-bg text-color mat-elevation-z6">
+  <span routerLink="/" style="cursor: pointer"
+    ><mat-icon>eco</mat-icon>QuickDrive</span
+  >
+  <div class="spacer"></div>
+
+  <div class="full-navbar">
+    <ng-template [ngTemplateOutlet]="mobileMenuOptions"></ng-template>
+  </div>
+
+  <button mat-icon-button class="menu-icon" (click)="toggleMenu()">
+    <mat-icon style="color: white">menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div
+  class="mobile-menu"
+  [ngClass]="{
+    open: menuOpened,
+    'animate-slide-down': menuOpened,
+    'animate-slide-up': !menuOpened && animationDone
+  }"
+  *ngIf="menuOpened"
+>
+  <ng-template [ngTemplateOutlet]="mobileMenuOptions"></ng-template>
+</div>
+
+<ng-template class="menu-options" #mobileMenuOptions>
+  <a mat-button routerLink="login" class="text-color" *ngIf="!isLoggedIn"
+    >Login</a
+  ><span *ngIf="!isLoggedIn">|</span>
+  <a mat-button routerLink="signup" class="text-color" *ngIf="!isLoggedIn"
+    >SignUp</a
+  >
+  <a
+    mat-button
+    routerLink="/customer"
+    routerLinkActive="active"
+    class="text-color"
+    *ngIf="isLoggedIn && isCustomer"
+    >Home</a
+  >
+  <a
+    mat-button
+    routerLink="/customer/rides"
+    class="text-color"
+    *ngIf="isLoggedIn && isCustomer"
+    >Rides</a
+  >
+  <a
+    mat-button
+    routerLink="/customer/payments"
+    class="text-color"
+    *ngIf="isLoggedIn && isCustomer"
+    >Payments</a
+  >
+  <a
+    mat-button
+    class="text-color"
+    routerLink="/customer/profile"
+    *ngIf="isLoggedIn && isCustomer"
+    >Profile<mat-icon>person</mat-icon></a
+  >
+
+  <!-- Driver -->
+  <a
+    mat-button
+    routerLink="/driver"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Home</a
+  >
+  <a
+    mat-button
+    routerLink="/driver/cab"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Cabs</a
+  >
+  <a
+    mat-button
+    routerLink="/driver/operation"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Operations</a
+  >
+  <a
+    mat-button
+    routerLink="/driver/riderequest"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Ride Requests</a
+  >
+  <a
+    mat-button
+    routerLink="/driver/rides/map"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Map</a
+  >
+  <a
+    mat-button
+    routerLink="/driver/profile"
+    class="text-color"
+    *ngIf="isLoggedIn && !isCustomer"
+    >Profile<mat-icon>person</mat-icon></a
+  >
+
+  <a mat-button class="text-color" (click)="logout()" *ngIf="isLoggedIn"
+    >logout</a
+  >
+</ng-template>
