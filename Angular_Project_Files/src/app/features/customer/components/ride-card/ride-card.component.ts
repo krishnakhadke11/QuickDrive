@@ -25,7 +25,7 @@ export class RideCardComponent implements OnInit{
 
   constructor(private mapboxService : MapboxService) { }
   ngOnInit(): void {
-    console.log(this.ride)
+    // console.log(this.ride)
   }
 
   onCardClick(){

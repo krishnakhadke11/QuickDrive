@@ -73,7 +73,8 @@
     }
     
     .img-section img{
-        scale: 0.75;
+        display: none;
+        /* scale: 0.75; */
     }
     
     .btn{

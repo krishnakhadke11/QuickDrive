@@ -6,43 +6,41 @@ import { environment } from "../../../environments/environment";
 import { User } from "../models/User";
 
 
-export const AuthInterceptor: HttpInterceptorFn = (req : HttpRequest<unknown>, next : HttpHandlerFn) => {
+export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const authService = inject(AuthenticationService);
   const localUser = localStorage.getItem('user')
   const user = localUser ? JSON.parse(localUser) : null
 
-  if(req.url.startsWith(environment.BASE_URL) && user){
-    let authReq = addToken(req)
+  if (req.url.startsWith(environment.BASE_URL) && user) {
 
-    /* for refresh tokens */
-    if(req.url === `${environment.BASE_URL}auth/refresh-token`){
-      authReq = req;
+    if (req.url !== `${environment.BASE_URL}auth/refresh-token`) {
+      req = addToken(req);
     }
 
-    return next(authReq).pipe(catchError((error) => {
-      if (error.status === 403 ) {
-        return handleTokenExpired(req, next,authService);
+    return next(req).pipe(catchError((error) => {
+      if (error.status === 403 && req.url !== `${environment.BASE_URL}auth/refresh-token`) {
+        return handleTokenExpired(req, next, authService);
       }
 
-      return throwError( () => error);
+      return throwError(() => error);
     }))
-  }else{
+  } else {
     return next(req)
   }
 };
 
-export const addToken = (req : HttpRequest<unknown>) => {
+export const addToken = (req: HttpRequest<unknown>) => {
   const localUser = localStorage.getItem('user')
   const user = localUser ? JSON.parse(localUser) : null
 
   return req.clone({
     setHeaders: {
-      Authorization: "Bearer "+user._token,
+      Authorization: "Bearer " + user._token,
     }
-   });
+  });
 }
 
-function handleTokenExpired(request: any, next: HttpHandlerFn, authService : AuthenticationService): Observable<HttpEvent<unknown>> {
+function handleTokenExpired(request: any, next: HttpHandlerFn, authService: AuthenticationService): Observable<HttpEvent<unknown>> {
   const localUser = localStorage.getItem('user')
   const user = localUser ? JSON.parse(localUser) : null
 
@@ -50,11 +48,6 @@ function handleTokenExpired(request: any, next: HttpHandlerFn, authService : Aut
     switchMap(() => {
       /* Retry the original request with the new access token */
       return next(addToken(request));
-    }),
-    catchError((error) => {
-      /* Handle refresh token error (e.g., redirect to login page) */
-      console.error('Error handling expired access token:', error);
-      return throwError(() => error);
     })
   );
 }
