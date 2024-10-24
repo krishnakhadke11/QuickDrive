@@ -1,27 +1,60 @@
-# TransportationService
+# Angular Application Setup
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
+This document provides instructions for setting up and running the Angular application.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Node.js**: Version `>= v20.9.0`
+- **Angular CLI**: Install globally using npm
 
-## Code scaffolding
+```bash
+npm install -g @angular/cli
+```
+# PowerShell Script Execution Policy
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+On Windows client computers, the execution of PowerShell scripts is disabled by default. If you encounter errors when running a PowerShell script, you may need to change the execution policy.
 
-## Build
+## Steps to Change the Execution Policy
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Open PowerShell as Administrator**:
+   - Right-click on the Start menu and select "Windows PowerShell (Admin)" or "Windows Terminal (Admin)".
+   
+2. **Run the following command** to allow the execution of PowerShell scripts:
 
-## Running unit tests
+   ```powershell
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Environment Configuration
 
-## Running end-to-end tests
+To configure environment variables for your application, you need to add the necessary settings to the `environment.ts` file.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Steps to Configure Environment Variables
 
-## Further help
+1. **Create a folder**:
+  Create a folder at `./src/` naming `environments` and create a file inside that folder naming `environment.ts` file.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. **Add the Following Configuration**:
+   Include the necessary environment variables in the file. For example:
+
+   ```bash
+         export const environment = {
+          production: false,
+          mapbox: {
+            accessToken: '',
+            directionService: '',
+            style: ''
+          },
+          BASE_URL: '',
+          secretKey: ''
+          };
+    ```
+# Running the Application
+To run the Angular application, use the following command:
+
+```bash
+ng serve -o
+```
+
+
+
